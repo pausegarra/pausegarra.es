@@ -1,0 +1,9 @@
+version: '3.2'
+
+services:
+  pausegarra:
+    container_name: pausegarra
+    image: psegarra/pausegarra:${VERSION}
+    ports:
+      - "3035:80"
+    restart: always
