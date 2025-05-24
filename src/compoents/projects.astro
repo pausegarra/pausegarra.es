@@ -1,0 +1,73 @@
+---
+const projects = [
+  {
+    title: "Russian Cheatsheet",
+    description: "Your personal companion to mastering the Russian language. This cheatsheet is crafted to support my journey in learning Russian, and perhaps it will help others too!",
+    tech: ["Java", "Quarkus", "ReactJS", "PostgreSQL", "Docker", "Keycloak"],
+    features: ["REST API", "Authentication", "RBAC"]
+  },
+  {
+    title: "Number detection",
+    description: "A simple HTML/CSS/JavaScript application in which the user can draw a number on a canvas and the application will detect what number it is using a self-trained tensorflow model",
+    tech: ["JS", "HTML", "CSS", "JavaScript", "TensorFlow.js", "Python", "Tensorflow"],
+    features: ["Real-time number recognition using a TensorFlow.js model", "Runs entirely in the browser with no backend required",]
+  },
+  {
+    title: "Time Tracker",
+    description: "An application that allows users to track their time spent on various topics, with the ability to create their own topics.",
+    tech: ["NodeJS", "NestJS", "MySQL", "Docker", "ReactJS"],
+    features: ["User Authentication", "CRUD Operations"]
+  },
+  {
+    title: "Survey Monkey Webhook Manager",
+    description: "A web application that allows users to manage webhooks for Survey Monkey surveys. It provides features such as creating, editing, and deleting webhooks.",
+    tech: ["NodeJS", "NextJS", "API Integration", "Docker"],
+    features: ["User Authentication", "CRUD Operations", "API Integration"]
+  }
+];
+---
+
+<section class="py-20 px-4 bg-gray-800">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+        Featured Projects
+      </h2>
+      <div class="w-24 h-1 bg-gradient-to-r from-green-600 to-blue-600 mx-auto"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      {projects.map((project, index) => (
+        <div class="bg-gray-900 p-8 rounded-xl border border-gray-700 hover:border-gray-600 transition-all duration-300 group hover:transform hover:-translate-y-2">
+          <h3 class="text-2xl font-semibold mb-4 text-white group-hover:text-blue-400 transition-colors">
+            {project.title}
+          </h3>
+
+          <p class="text-gray-400 mb-6 leading-relaxed">
+            {project.description}
+          </p>
+
+          <div class="mb-6">
+            <h4 class="text-sm font-semibold text-gray-300 mb-3">Key Features:</h4>
+            <div class="grid grid-cols-2 gap-2">
+              {project.features.map((feature, featureIndex) => (
+                <div class="flex items-center text-sm text-gray-400">
+                  <div class="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                  {feature}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            {project.tech.map((tech, techIndex) => (
+              <span class="px-3 py-1 bg-gray-800 text-blue-400 text-sm rounded-full border border-gray-700">
+              {tech}
+            </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
