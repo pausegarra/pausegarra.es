@@ -1,16 +1,24 @@
 ---
 import '../styles/global.css';
+import Hero from "../compoents/hero.astro";
+import About from "../compoents/about.astro";
+import Skills from "../compoents/skills.astro";
+import Projects from "../compoents/projects.astro";
+import Contact from "../compoents/contact.astro";
+import Footer from "../compoents/footer.astro";
 ---
 
-<html lang="en">
+<html>
 	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Pau Segarra</title>
 	</head>
-	<body>
-		<h1>Astro</h1>
+
+	<body class="min-h-screen bg-gray-900 text-gray-100">
+		<Hero/>
+		<About/>
+		<Skills/>
+		<Projects/>
+		<Contact/>
+		<Footer/>
 	</body>
 </html>
