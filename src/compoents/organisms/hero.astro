@@ -37,16 +37,22 @@ import Title from "../atoms/Title.astro";
 </section>
 
 <script type="module" is:inline>
-  const fullText = "Turning complexity into elegant software solutions";
-  const target = document.getElementById("typing-target");
+  function type() {
+    const fullText = "Turning complexity into elegant software solutions";
+    const target = document.getElementById("typing-target");
 
-  let i = 0;
-  const timer = setInterval(() => {
-    if (i < fullText.length) {
-      target.textContent = fullText.slice(0, i + 1);
-      i++;
-    } else {
-      clearInterval(timer);
-    }
-  }, 100);
+    let i = 0;
+    const timer = setInterval(() => {
+      if (i < fullText.length) {
+        target.textContent = fullText.slice(0, i + 1);
+        i++;
+      } else {
+        clearInterval(timer);
+      }
+    }, 100);
+  }
+
+  type();
+  document.addEventListener('astro:after-swap', type);
+  document.addEventListener('DOMContentLoaded', type);
 </script>
