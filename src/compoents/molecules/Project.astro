@@ -17,7 +17,7 @@ const {project, slug} = Astro.props;
 ---
 
 <Card additionalClass="bg-gray-900 p-8 rounded-xl flex-col shadow-2xl">
-  <a href={`/projects/${slug}`}>
+  <a href={`/projects/${slug}/`}>
     <Title as="h3" title={project.title} transitionName={`project-title-${slug}`} class="text-2xl font-semibold mb-4 text-white group-hover:text-blue-400 transition-colors" />
 
     <p class="text-gray-400 mb-6 leading-relaxed" transition:name={`project-description-${slug}`}>
