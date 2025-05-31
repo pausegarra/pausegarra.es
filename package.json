@@ -12,10 +12,13 @@
     "@iconify-json/devicon": "^1.2.24",
     "@iconify-json/entypo-social": "^1.2.2",
     "@iconify-json/material-symbols": "^1.2.21",
-    "@tailwindcss/vite": "^4.1.7",
+    "@tailwindcss/vite": "^4.1.8",
     "astro": "^5.8.0",
     "astro-icon": "^1.1.5",
     "swiper": "^11.2.8",
-    "tailwindcss": "^4.1.7"
+    "tailwindcss": "^4.1.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16"
   }
 }

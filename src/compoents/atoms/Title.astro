@@ -7,7 +7,7 @@ interface Props {
 
 const { title, as = "h2", class: additionalClass } = Astro.props;
 
-const className = `md:text-5xl font-bold mb-6 bg-clip-text text-transparent ${additionalClass}`;
+const className = `font-bold bg-clip-text text-transparent ${additionalClass}`;
 ---
 
 {as === "h1" && (
@@ -20,4 +20,16 @@ const className = `md:text-5xl font-bold mb-6 bg-clip-text text-transparent ${ad
   <h2 class={`text-4xl ${className}`}>
     {title}
   </h2>
+)}
+
+{as === "h3" && (
+  <h3 class={`text-2xl ${className}`}>
+    {title}
+  </h3>
+)}
+
+{as === "h4" && (
+  <h4 class={`text-xl ${className}`}>
+    {title}
+  </h4>
 )}

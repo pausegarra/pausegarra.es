@@ -1,0 +1,12 @@
+---
+interface Props {
+  item: string;
+  color: string;
+}
+
+const { item, color } = Astro.props;
+---
+
+<span class={`px-3 py-1 bg-gray-800 ${color} text-sm rounded-full border border-gray-700`}>
+  {item}
+</span>

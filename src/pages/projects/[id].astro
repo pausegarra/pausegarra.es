@@ -1,0 +1,64 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Title from "../../compoents/atoms/Title.astro";
+import Pill from "../../compoents/atoms/Pill.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+
+  return projects.map((project) => ({
+    params: { id: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<Layout title={`${project.data.title} | Pau Segarra`}>
+  <section class="pt-20 px-4 text-white">
+    <div class="max-w-4xl mx-auto text-center mb-12">
+      <Title title={project.data.title} class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent" />
+      <p class="text-lg opacity-80">{project.data.shortDescription}</p>
+    </div>
+
+    <div class="max-w-3xl mx-auto flex flex-wrap gap-2 justify-center">
+      {project.data.links.map((link, linkIndex) => (
+        <a href={link.url} target="_blank" class={`px-3 py-1 ${link.className} text-sm rounded-full`}>
+          Visit {link.title}
+        </a>
+      ))}
+    </div>
+
+    <div class="max-w-3xl mx-auto prose prose-invert">
+      <Content />
+    </div>
+
+    <div class="max-w-3xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="text-center">
+        <Title title="Technologies" class="bg-blue-400 mb-2" as="h4" />
+        <div class="flex flex-wrap gap-2 justify-center">
+          {project.data.tech.map((tech, techIndex) => (
+            <Pill
+              item={tech}
+              color="text-blue-400"
+            />
+          ))}
+        </div>
+      </div>
+
+      <div class="text-center">
+        <Title title="Features" class="bg-green-400 mb-2" as="h4" />
+        <div class="flex flex-wrap gap-2 justify-center pb-4">
+          {project.data.features.map((tech, techIndex) => (
+            <Pill
+              item={tech}
+              color="text-green-400"
+            />
+          ))}
+        </div>
+    </div>
+  </section>
+</Layout>
