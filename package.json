@@ -1,7 +1,7 @@
 {
   "name": "pausegarra.es",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -11,7 +11,6 @@
   "dependencies": {
     "@iconify-json/devicon": "^1.2.24",
     "@iconify-json/entypo-social": "^1.2.2",
-    "@iconify-json/material-icon-theme": "^1.2.11",
     "@iconify-json/material-symbols": "^1.2.21",
     "@tailwindcss/vite": "^4.1.7",
     "astro": "^5.8.0",

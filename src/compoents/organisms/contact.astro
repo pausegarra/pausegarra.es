@@ -1,0 +1,41 @@
+---
+import Title from "../atoms/Title.astro";
+import Divider from "../atoms/Divider.astro";
+import ContactCard from "../molecules/ContactCard.astro";
+---
+
+<section id="contact" class="py-20 px-4 bg-gray-900">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-16">
+      <Title title="Let's Work Together" class="bg-gradient-to-r from-blue-400 to-purple-400" />
+      <Divider class="bg-gradient-to-r from-blue-600 to-purple-600" />
+      <p class="text-xl text-gray-400 max-w-2xl mx-auto mt-8">
+        Ready to build something amazing? I'm always open to discussing new opportunities and interesting projects.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 mb-12">
+      <ContactCard
+        title="Email"
+        icon="material-symbols:alternate-email"
+        link="mailto:pausegarra.b@gmail.com"
+        from="from-blue-500"
+        to="to-purple-600"
+      />
+      <ContactCard
+        title="LinkedIn"
+        icon="entypo-social:linkedin"
+        link="https://www.linkedin.com/in/pausegarra/"
+        from="from-green-500"
+        to="to-blue-600"
+      />
+      <ContactCard
+        title="GitHub"
+        icon="entypo-social:github"
+        link="https://github.com/pausegarra"
+        from="from-purple-500"
+        to="to-pink-600"
+      />
+    </div>
+  </div>
+</section>

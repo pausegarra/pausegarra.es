@@ -1,10 +1,14 @@
+---
+import Title from "../atoms/Title.astro";
+import Card from "../atoms/Card.astro";
+import Divider from "../atoms/Divider.astro";
+---
+
 <section id="about" class="py-20 px-4 bg-gray-800">
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent">
-        About Me
-      </h2>
-      <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-green-600 mx-auto"></div>
+      <Title title="About Me" class="bg-gradient-to-r from-blue-400 to-green-400" />
+      <Divider class="bg-gradient-to-r from-blue-600 to-green-600" />
     </div>
 
     <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -18,27 +22,25 @@
         </p>
 
         <div class="grid grid-cols-2 gap-6 mt-8">
-          <div class="text-center p-4 bg-gray-900 rounded-lg border border-gray-700">
+          <Card background="gray-900" additionalClass="flex-col p-4">
             <div class="text-3xl font-bold text-blue-400 mb-2">50+</div>
             <div class="text-gray-400">Projects Completed</div>
-          </div>
-          <div class="text-center p-4 bg-gray-900 rounded-lg border border-gray-700">
+          </Card>
+          <Card background="gray-900" additionalClass="flex-col p-4">
             <div class="text-3xl font-bold text-green-400 mb-2">5+</div>
             <div class="text-gray-400">Years Experience</div>
-          </div>
+          </Card>
         </div>
       </div>
 
       <div class="relative">
-        <div class="w-full h-96 bg-gradient-to-br from-gray-700 to-gray-900 rounded-xl shadow-2xl flex items-center justify-center border border-gray-600">
-          <div class="text-center">
-            <div class="w-64 h-64 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-              <span class="text-4xl font-bold text-white rounded-full overflow-hidden">
-                <img src="https://gravatar.com/avatar/63bfa48e51ec8bf6e6b92e4cb2867424?s=300&d=identicon" alt="Profile Image"/>
-              </span>
-            </div>
+        <Card from="gray-700" to="gray-900" gradient additionalClass="w-full h-96 items-center">
+          <div class="w-64 h-64 rounded-full mx-auto mb-4 flex items-center justify-center">
+            <span class="text-4xl font-bold text-white rounded-full overflow-hidden">
+              <img src="https://gravatar.com/avatar/63bfa48e51ec8bf6e6b92e4cb2867424?s=300&d=identicon" alt="Profile Image"/>
+            </span>
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   </div>

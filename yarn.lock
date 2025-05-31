@@ -275,27 +275,12 @@
   dependencies:
     "@iconify/types" "*"
 
-"@iconify-json/material-icon-theme@^1.2.11":
-  version "1.2.11"
-  resolved "https://registry.yarnpkg.com/@iconify-json/material-icon-theme/-/material-icon-theme-1.2.11.tgz#b15c8507ea13b01113df1a044e05ff4d9a6cf27b"
-  integrity sha512-TzB3zb3PQi7cuizWubRYyeFjQ8nQex+vcL0UUNuYwyd1NTpr8gUk/iFQW3neCnw3o1Z0Rl14RX90y1bVo5qzQA==
-  dependencies:
-    "@iconify/types" "*"
-
 "@iconify-json/material-symbols@^1.2.21":
   version "1.2.21"
   resolved "https://registry.yarnpkg.com/@iconify-json/material-symbols/-/material-symbols-1.2.21.tgz#cc77b4383d29df9d102a472eb8cd6d5b0bce50d4"
   integrity sha512-78o99N3oYeWY91EvZDl5bAPSPtO3rgkPwuOfgk4iBLbpb2peE6ueZFiMA/RURpy8jf4Pyt9rUtjP34UJIkVAcA==
   dependencies:
     "@iconify/types" "*"
-
-"@iconify/tailwind4@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@iconify/tailwind4/-/tailwind4-1.0.6.tgz#93c6d637677152a5ef4a1f489d168ed15c12393f"
-  integrity sha512-43ZXe+bC7CuE2LCgROdqbQeFYJi/J7L/k1UpSy8KDQlWVsWxPzLSWbWhlJx4uRYLOh1NRyw02YlDOgzBOFNd+A==
-  dependencies:
-    "@iconify/types" "^2.0.0"
-    "@iconify/utils" "^2.2.1"
 
 "@iconify/tools@^4.0.5":
   version "4.1.2"
@@ -319,7 +304,7 @@
   resolved "https://registry.yarnpkg.com/@iconify/types/-/types-2.0.0.tgz#ab0e9ea681d6c8a1214f30cd741fe3a20cc57f57"
   integrity sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==
 
-"@iconify/utils@^2.1.30", "@iconify/utils@^2.2.1", "@iconify/utils@^2.3.0":
+"@iconify/utils@^2.1.30", "@iconify/utils@^2.3.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@iconify/utils/-/utils-2.3.0.tgz#1bbbf8c477ebe9a7cacaea78b1b7e8937f9cbfba"
   integrity sha512-GmQ78prtwYW6EtzXRU1rY+KwOKfz32PD7iJh6Iyqw68GiKuoZ2A6pRtzWONz5VQJbp50mEjXh/7NkumtrAgRKA==

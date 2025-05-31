@@ -1,4 +1,6 @@
 ---
+import Project from "../molecules/Project.astro";
+
 const projects = [
   {
     title: "Russian Cheatsheet",
@@ -38,35 +40,7 @@ const projects = [
 
     <div class="grid md:grid-cols-2 gap-8">
       {projects.map((project, index) => (
-        <div class="bg-gray-900 p-8 rounded-xl border border-gray-700">
-          <h3 class="text-2xl font-semibold mb-4 text-white group-hover:text-blue-400 transition-colors">
-            {project.title}
-          </h3>
-
-          <p class="text-gray-400 mb-6 leading-relaxed">
-            {project.description}
-          </p>
-
-          <div class="mb-6">
-            <h4 class="text-sm font-semibold text-gray-300 mb-3">Key Features:</h4>
-            <div class="grid grid-cols-2 gap-2">
-              {project.features.map((feature, featureIndex) => (
-                <div class="flex items-center text-sm text-gray-400">
-                  <div class="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-                  {feature}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div class="flex flex-wrap gap-2">
-            {project.tech.map((tech, techIndex) => (
-              <span class="px-3 py-1 bg-gray-800 text-blue-400 text-sm rounded-full border border-gray-700">
-              {tech}
-            </span>
-            ))}
-          </div>
-        </div>
+        <Project project={project} />
       ))}
     </div>
   </div>

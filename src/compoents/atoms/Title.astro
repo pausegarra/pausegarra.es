@@ -1,0 +1,23 @@
+---
+interface Props {
+  title: string;
+  as?: string;
+  class?: string;
+}
+
+const { title, as = "h2", class: additionalClass } = Astro.props;
+
+const className = `md:text-5xl font-bold mb-6 bg-clip-text text-transparent ${additionalClass}`;
+---
+
+{as === "h1" && (
+  <h1 class={`text-6xl md:text-8xl font-bold py-2 ${className}`}>
+    {title}
+  </h1>
+)}
+
+{as === "h2" && (
+  <h2 class={`text-4xl ${className}`}>
+    {title}
+  </h2>
+)}

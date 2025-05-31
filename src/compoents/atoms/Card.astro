@@ -1,0 +1,24 @@
+---
+interface Props {
+  from?: string;
+  to?: string;
+  gradient?: boolean;
+  background?: string;
+  additionalClass?: string;
+}
+
+const { from, to, gradient, background, additionalClass } = Astro.props;
+
+let className = `rounded-xl shadow-2xl flex ${additionalClass}`
+
+if (gradient) {
+  className += ` bg-gradient-to-br from-${from} to-${to}`;
+} else {
+  className += ` bg-${background}`;
+}
+
+---
+
+<div class={className}>
+  <slot />
+</div>

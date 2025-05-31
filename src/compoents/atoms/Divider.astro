@@ -1,0 +1,9 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: additionalClass } = Astro.props;
+---
+
+<div class={`w-24 h-1 ${additionalClass} mx-auto`}></div>

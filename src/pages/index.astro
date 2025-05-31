@@ -1,28 +1,19 @@
 ---
 import '../styles/global.css';
-import Hero from "../compoents/hero.astro";
-import About from "../compoents/about.astro";
-import Skills from "../compoents/skills.astro";
-import Projects from "../compoents/projects.astro";
-import Contact from "../compoents/contact.astro";
-import Footer from "../compoents/footer.astro";
+import Hero from "../compoents/organisms/hero.astro";
+import About from "../compoents/organisms/about.astro";
+import Skills from "../compoents/organisms/skills.astro";
+import Projects from "../compoents/organisms/projects.astro";
+import Contact from "../compoents/organisms/contact.astro";
+import Footer from "../compoents/organisms/footer.astro";
+import Layout from "../layouts/Layout.astro";
 ---
 
-<html lang="en" class="scroll-smooth">
-	<head>
-		<meta charset="UTF-8">
-		<title>Pau Segarra</title>
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-		<meta name="description" content="Software Engineer focused on elegant and scalable backend solutions. Portfolio of Pau Segarra.">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-	</head>
-
-	<body class="min-h-screen bg-gray-900 text-gray-100">
-		<Hero/>
-		<About/>
-		<Skills/>
-		<Projects/>
-		<Contact/>
-		<Footer/>
-	</body>
-</html>
+<Layout title="Pau Segarra">
+	<Hero/>
+	<About/>
+	<Skills/>
+	<Projects/>
+	<Contact/>
+	<Footer/>
+</Layout>

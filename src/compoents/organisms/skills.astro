@@ -1,20 +1,19 @@
 ---
 import 'swiper/swiper-bundle.css';
 import { Icon } from 'astro-icon/components';
+import Title from "../atoms/Title.astro";
+import Divider from "../atoms/Divider.astro";
 
 const skills = [
   { name: "Java", icon: "devicon:java", gradient: "from-[#ea2d2e] to-[#b31217]" },
   { name: "Quarkus", icon: "devicon:quarkus", gradient: "from-[#4693F8] to-[#8517FF]" },
-  { name: "Node.js", icon: "material-icon-theme:nodejs", gradient: "from-[#3c873a] to-[#1a4718]" },
+  { name: "Node.js", icon: "devicon:nodejs-wordmark", gradient: "from-[#3c873a] to-[#1a4718]" },
   { name: "PostgreSQL", icon: "devicon:postgresql", gradient: "from-[#336791] to-[#1b355d]" },
   { name: "MongoDB", icon: "devicon:mongodb-wordmark", gradient: "from-[#4DB33D] to-[#2e7031]" },
-  { name: "MySQL", icon: "devicon:mysql", gradient: "from-[#00758f] to-[#00618a]" },
   { name: "Docker", icon: "devicon:docker", gradient: "from-[#0db7ed] to-[#006fa3]" },
   { name: "Kubernetes", icon: "devicon:kubernetes", gradient: "from-[#326ce5] to-[#194eb7]" },
   { name: "Express.js", icon: "devicon:express", gradient: "from-gray-700 to-gray-900" },
-  { name: "GCP", icon: "devicon:googlecloud", gradient: "from-[#4285F4] to-[#34A853]" },
   { name: "CI/CD", icon: "material-symbols:sync-alt", gradient: "from-[#6366f1] to-[#8b5cf6]" },
-  { name: "Terraform", icon: "devicon:terraform", gradient: "from-[#5c4ee5] to-[#2f1ce0]" },
   { name: "Spring Boot", icon: "devicon:spring", gradient: "from-[#6DB33F] to-[#4C7737]" },
   { name: "React.js", icon: "devicon:react", gradient: "from-[#61DBFB] to-[#20232a]" },
   { name: "Javascript", icon: "devicon:javascript", gradient: "from-[#f7df1e] to-[#facc15]" },
@@ -24,10 +23,8 @@ const skills = [
 ---
 <section class="py-20 px-4 bg-gray-900">
   <div class="max-w-6xl mx-auto text-center mb-16">
-    <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-      Tech Stack
-    </h2>
-    <div class="w-24 h-1 bg-gradient-to-r from-purple-600 to-blue-600 mx-auto"></div>
+    <Title title="Tech Stack" class="bg-gradient-to-r from-purple-400 to-blue-400" />
+    <Divider class="bg-gradient-to-r from-purple-600 to-blue-600" />
   </div>
 
   <div class="swiper">
@@ -42,4 +39,4 @@ const skills = [
   </div>
 </section>
 
-<script src="../lib/swiper.js"></script>
+<script src="../../lib/swiper.js"></script>
