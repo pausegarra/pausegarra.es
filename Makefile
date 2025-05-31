@@ -11,6 +11,6 @@ install: ## Install the dependencies.
 	yarn
 
 build-docker: ## Build the docker image.
-	docker build -t russian-cheatsheet-front .
+	docker build -t pausegarra-es-front .
 
 .PHONY: help dev build
