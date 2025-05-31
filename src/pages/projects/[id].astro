@@ -20,8 +20,8 @@ const { Content } = await render(project);
 <Layout title={`${project.data.title} | Pau Segarra`}>
   <section class="pt-20 px-4 text-white">
     <div class="max-w-4xl mx-auto text-center mb-12">
-      <Title title={project.data.title} class="text-4xl md:text-5xl font-bold pb-4 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent" />
-      <p class="text-lg opacity-80">{project.data.shortDescription}</p>
+      <Title title={project.data.title} transitionName={`project-title-${project.slug}`} class="text-4xl md:text-5xl font-bold pb-4 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent" />
+      <p class="text-lg opacity-80" transition:name={`project-description-${project.slug}`}>{project.data.shortDescription}</p>
     </div>
 
     <div class="max-w-3xl mx-auto flex flex-wrap gap-2 justify-center">
