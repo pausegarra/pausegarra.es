@@ -13,7 +13,7 @@ const projects = await getCollection("projects")
     <div transition:name="projects-divider" class="w-24 h-1 bg-gradient-to-r from-green-600 to-blue-600 mx-auto"></div>
   </div>
 
-  <div class="container mx-auto grid grid-cols-3 gap-6">
+  <div class="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
     {projects.map(project => (
       <a href={`/projects/${project.slug}/`}>
         <Card additionalClass={`bg-gray-900 p-8 rounded-xl flex-col shadow-2xl`}>
