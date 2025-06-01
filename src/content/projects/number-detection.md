@@ -2,6 +2,7 @@
 title: Number Detection
 shortDescription: A web app that recognizes drawn numbers using a TensorFlow.js model directly in the browser.
 link: https://github.com/pausegarra/number-detection
+featured: true
 links:
   - title: GitHub
     url: https://github.com/pausegarra/number_detection

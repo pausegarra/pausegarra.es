@@ -2,6 +2,7 @@
 title: Survey Monkey Webhook Manager
 shortDescription: App to manage SurveyMonkey webhooks with full CRUD and authentication.
 link: https://github.com/pausegarra/survey-monkey-webhook-manager
+featured: true
 links:
   - title: GitHub
     url: https://github.com/pausegarra/surveymonkey-webhooks

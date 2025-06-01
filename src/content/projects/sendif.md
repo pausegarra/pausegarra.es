@@ -2,6 +2,7 @@
 title: SendIf
 shortDescription: A web application that allows users to calculate the difficulty of a given mountain route.
 link: https://github.com/pausegarra/sendif
+featured: false
 links:
   - title: GitHub
     url: https://github.com/pausegarra/sendif

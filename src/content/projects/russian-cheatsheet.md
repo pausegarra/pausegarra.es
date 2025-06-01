@@ -2,6 +2,7 @@
 title: Russian Cheatsheet
 shortDescription: Your personal companion to mastering the Russian language.
 link: https://russian-cheatsheet.pausegarra.es
+featured: true
 links:
   - title: GitHub API
     url: https://github.com/pausegarra/russian-cheatsheet-api
