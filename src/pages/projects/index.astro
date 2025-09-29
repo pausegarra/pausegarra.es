@@ -7,7 +7,11 @@ import Card from "../../compoents/atoms/Card.astro";
 const projects = await getCollection("projects")
 ---
 
-<Layout title="Projects | Pau Segarra">
+<Layout
+  title="Projects | Backend Engineering Portfolio of Pau Segarra"
+  description="Explore backend engineering projects by Pau Segarra, including scalable APIs, cloud-native architectures, event-driven systems, and real-world implementations using Java, Quarkus, OpenFGA, and more."
+  url="https://pausegarra.es/projects/"
+>
   <div class="text-center my-16">
     <Title transitionName="projects-title" as="h2" title="Projects" class="font-bold mb-2 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent" />
     <div transition:name="projects-divider" class="w-24 h-1 bg-gradient-to-r from-green-600 to-blue-600 mx-auto"></div>
