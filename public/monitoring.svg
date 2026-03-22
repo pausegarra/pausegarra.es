@@ -1,0 +1,31 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" rx="32" fill="#06131A"/>
+  <rect x="28" y="28" width="1144" height="574" rx="24" fill="url(#bg)"/>
+  <circle cx="183" cy="143" r="96" fill="#0E7490" fill-opacity="0.18"/>
+  <circle cx="1017" cy="496" r="132" fill="#22C55E" fill-opacity="0.16"/>
+  <rect x="92" y="100" width="1016" height="430" rx="28" fill="#071B22" stroke="#164E63" stroke-width="2"/>
+  <rect x="136" y="144" width="252" height="138" rx="18" fill="#0B2530" stroke="#155E75"/>
+  <rect x="420" y="144" width="302" height="138" rx="18" fill="#0B2530" stroke="#155E75"/>
+  <rect x="754" y="144" width="310" height="138" rx="18" fill="#0B2530" stroke="#155E75"/>
+  <rect x="136" y="314" width="928" height="166" rx="18" fill="#0B2530" stroke="#155E75"/>
+  <text x="166" y="194" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="30" font-weight="700">Prometheus</text>
+  <text x="166" y="231" fill="#7DD3FC" font-family="Arial, sans-serif" font-size="18">Metrics scraping</text>
+  <text x="166" y="256" fill="#7DD3FC" font-family="Arial, sans-serif" font-size="18">and storage</text>
+  <text x="450" y="194" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="30" font-weight="700">Grafana</text>
+  <text x="450" y="231" fill="#86EFAC" font-family="Arial, sans-serif" font-size="18">Dashboards</text>
+  <text x="450" y="256" fill="#86EFAC" font-family="Arial, sans-serif" font-size="18">alerts and datasources</text>
+  <text x="784" y="194" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="30" font-weight="700">Loki + Alloy</text>
+  <text x="784" y="231" fill="#FDE68A" font-family="Arial, sans-serif" font-size="18">OTLP logs</text>
+  <text x="784" y="256" fill="#FDE68A" font-family="Arial, sans-serif" font-size="18">label promotion</text>
+  <path d="M272 349C329 390 387 389 444 349C501 309 559 308 616 349C673 390 731 389 788 349C845 309 903 308 960 349" stroke="#22C55E" stroke-width="8" stroke-linecap="round"/>
+  <path d="M272 402C329 362 387 363 444 402C501 441 559 442 616 402C673 362 731 363 788 402C845 441 903 442 960 402" stroke="#38BDF8" stroke-width="8" stroke-linecap="round"/>
+  <text x="166" y="365" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="42" font-weight="700">Monitoring</text>
+  <text x="166" y="406" fill="#94A3B8" font-family="Arial, sans-serif" font-size="22">Prometheus, Grafana, Loki, Alloy</text>
+  <text x="166" y="438" fill="#94A3B8" font-family="Arial, sans-serif" font-size="22">Containerized observability stack</text>
+  <defs>
+    <linearGradient id="bg" x1="56" y1="48" x2="1148" y2="582" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A1F28"/>
+      <stop offset="1" stop-color="#0F2C23"/>
+    </linearGradient>
+  </defs>
+</svg>

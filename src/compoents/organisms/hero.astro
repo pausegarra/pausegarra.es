@@ -7,8 +7,7 @@ import Title from "../atoms/Title.astro";
       <Title class="bg-gradient-to-r from-blue-400 via-purple-500 to-green-400" title="Pau Segarra" as="h1" />
       <div class="h-12 flex items-center justify-center">
         <h2 class="text-2xl md:text-4xl text-gray-300 font-light">
-          <span id="typing-target"></span>
-          <span class="animate-pulse">|</span>
+          <span id="typing-target">Turning complexity into elegant software solutions</span>
         </h2>
       </div>
     </div>
@@ -35,24 +34,3 @@ import Title from "../atoms/Title.astro";
     <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-10"></div>
   </div>
 </section>
-
-<script type="module" is:inline>
-  function type() {
-    const fullText = "Turning complexity into elegant software solutions";
-    const target = document.getElementById("typing-target");
-
-    let i = 0;
-    const timer = setInterval(() => {
-      if (i < fullText.length) {
-        target.textContent = fullText.slice(0, i + 1);
-        i++;
-      } else {
-        clearInterval(timer);
-      }
-    }, 100);
-  }
-
-  type();
-  document.addEventListener('astro:after-swap', type);
-  document.addEventListener('DOMContentLoaded', type);
-</script>
