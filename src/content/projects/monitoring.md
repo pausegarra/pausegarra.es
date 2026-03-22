@@ -2,7 +2,7 @@
 title: Monitoring
 shortDescription: Containerized observability stack built around Prometheus, Grafana, Loki, and Alloy.
 link: null
-featured: false
+featured: true
 links:
   - title: GitHub
     url: https://github.com/pausegarra/monitoring
