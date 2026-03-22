@@ -22,7 +22,7 @@ features:
   - Alerting
 ---
 
-![Monitoring](/monitoring.svg)
+![Monitoring](/monitoring.png)
 
 Monitoring is a production-oriented observability stack designed to centralize metrics, logs, dashboards, and alerting in a single containerized deployment. The project combines Grafana, Prometheus, Loki, and Alloy to provide a cohesive monitoring platform that is easy to run locally and straightforward to ship in production. It is intended for teams that want a self-hosted foundation for infrastructure and application observability without having to assemble each piece from scratch.
 
