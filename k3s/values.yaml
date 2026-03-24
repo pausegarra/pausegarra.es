@@ -27,11 +27,34 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
-    - host: "pausegarra.es"
+    - host: "pausegarra.com"
       paths:
         - path: /
           pathType: Prefix
   tls:
     - hosts:
-        - pausegarra.es
+        - pausegarra.com
       secretName: pausegarra-tls
+
+traefikMiddlewareRedirectRegex:
+  enabled: true
+  items:
+    - name: redirect-pausegarra-es-to-com
+      namespace: main
+      regex: ^https?://pausegarra\.es(/.*)?$
+      replacement: https://pausegarra.com${1}
+      permanent: true
+  redirectIngress:
+    enabled: true
+    className: "traefik"
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - host: pausegarra.es
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - pausegarra.es
+        secretName: pausegarra-es-tls
