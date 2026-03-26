@@ -17,6 +17,8 @@ resources:
 
 livenessProbe:
   path: /
+readinessProbe:
+  path: /
 
 rollingUpdate:
   enabled: true
