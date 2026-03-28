@@ -43,7 +43,12 @@ traefikMiddlewareRedirectRegex:
   items:
     - name: redirect-pausegarra-es-to-com
       namespace: main
-      regex: ^https?://pausegarra\.es(/.*)?$
+      regex: ^https?://(www\.)?pausegarra\.es(/.*)?$
+      replacement: https://pausegarra.com${1}
+      permanent: true
+    - name: redirect-www-pausegarra-com-to-com
+      namespace: main
+      regex: ^https?://www\.pausegarra\.com(/.*)?$
       replacement: https://pausegarra.com${1}
       permanent: true
   redirectIngress:
@@ -56,7 +61,19 @@ traefikMiddlewareRedirectRegex:
         paths:
           - path: /
             pathType: Prefix
+      - host: www.pausegarra.es
+        paths:
+          - path: /
+            pathType: Prefix
+      - host: www.pausegarra.com
+        paths:
+          - path: /
+            pathType: Prefix
     tls:
       - hosts:
           - pausegarra.es
+          - www.pausegarra.es
         secretName: pausegarra-es-tls
+      - hosts:
+          - www.pausegarra.com
+        secretName: pausegarra-www-com-tls
