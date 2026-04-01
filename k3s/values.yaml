@@ -44,7 +44,7 @@ traefikMiddlewareRedirectRegex:
     - name: redirect-pausegarra-es-to-com
       namespace: main
       regex: ^https?://(www\.)?pausegarra\.es(/.*)?$
-      replacement: https://pausegarra.com${1}
+      replacement: https://pausegarra.com${2}
       permanent: true
     - name: redirect-www-pausegarra-com-to-com
       namespace: main
