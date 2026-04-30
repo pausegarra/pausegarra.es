@@ -28,12 +28,12 @@ const skills = [
     <Divider class="bg-gradient-to-r from-purple-600 to-blue-600" />
   </div>
 
-  <div class="swiper">
+  <div class="swiper px-1">
     <div class="swiper-wrapper">
       {skills.map(skill => (
-        <div class={`swiper-slide !flex flex-col items-center justify-center p-4 rounded-xl border border-gray-700 text-white bg-gradient-to-br ${skill.gradient}`}>
-          <Icon name={skill.icon} class="text-7xl mb-2 drop-shadow-xl" />
-          <span class="text-sm font-medium">{skill.name}</span>
+        <div class={`swiper-slide !flex flex-col items-center justify-center p-5 rounded-xl border border-gray-700/90 text-white bg-gradient-to-br ${skill.gradient} shadow-lg hover:-translate-y-1 hover:shadow-2xl transition-all duration-300`}>
+          <Icon name={skill.icon} class="text-7xl mb-3 drop-shadow-xl" />
+          <span class="text-sm font-semibold tracking-wide">{skill.name}</span>
         </div>
       ))}
     </div>

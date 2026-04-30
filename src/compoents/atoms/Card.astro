@@ -7,9 +7,9 @@ interface Props {
   additionalClass?: string;
 }
 
-const { from, to, gradient, background, additionalClass } = Astro.props;
+const { from = 'gray-800', to = 'gray-900', gradient, background = 'gray-900', additionalClass = '' } = Astro.props;
 
-let className = `rounded-xl shadow-2xl flex ${additionalClass}`
+let className = `rounded-xl border border-gray-800/80 shadow-2xl flex ${additionalClass}`
 
 if (gradient) {
   className += ` bg-gradient-to-br from-${from} to-${to}`;
