@@ -7,56 +7,79 @@ interface Props {
   description: string;
   url: string;
   ogImage?: string;
+  keywords?: string;
 }
 
-const { title, description, url, ogImage } = Astro.props;
+const { title, description, url, ogImage, keywords } = Astro.props;
 const image = ogImage ? ogImage : '/favicon.svg';
+const siteUrl = 'https://pausegarra.com';
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="sitemap" href="/sitemap-index.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Pau Segarra" />
+  <meta name="theme-color" content="#111827" />
+  {keywords && <meta name="keywords" content={keywords} />}
   <meta name="description" content={description}>
   <link rel="canonical" href={url}>
+  <link rel="alternate" hreflang="en" href={url}>
+  <link rel="alternate" hreflang="x-default" href={url}>
 
   <meta property="og:type" content="website">
   <meta property="og:url" content={url}>
   <meta property="og:title" content={title}>
   <meta property="og:description" content={description}>
-  <meta property="og:image" content={`https://pausegarra.es${image}`}>
+  <meta property="og:image" content={`${siteUrl}${image}`}>
+  <meta property="og:site_name" content="Pau Segarra">
+  <meta property="og:locale" content="en_US">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content={title}>
   <meta name="twitter:description" content={description}>
-  <meta name="twitter:image" content={`https://pausegarra.es${image}`}>
+  <meta name="twitter:image" content={`${siteUrl}${image}`}>
+  <meta name="twitter:site" content="@pausegarra">
+  <meta name="twitter:creator" content="@pausegarra">
 
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Pau Segarra",
-      "url": "https://pausegarra.es/",
-      "jobTitle": "Backend Software Engineer",
-      "description": "Experienced backend developer specialized in scalable microservices, APIs, and cloud infrastructure.",
-      "sameAs": [
-        "https://github.com/pausegarra",
-        "https://www.linkedin.com/in/paausegarra",
-        "mailto:you@example.com"
-      ]
-    }
-  </script>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${siteUrl}/#website`,
+        url: `${siteUrl}/`,
+        name: 'Pau Segarra | Backend Software Engineer',
+        inLanguage: 'en',
+        description: 'Portfolio of Pau Segarra, a backend software engineer specializing in scalable microservices, APIs, and cloud infrastructure.'
+      },
+      {
+        '@type': 'Person',
+        '@id': `${siteUrl}/#person`,
+        name: 'Pau Segarra',
+        url: `${siteUrl}/`,
+        jobTitle: 'Backend Software Engineer',
+        description: 'Experienced backend developer specialized in scalable microservices, APIs, and cloud infrastructure.',
+        sameAs: [
+          'https://github.com/pausegarra',
+          'https://www.linkedin.com/in/paausegarra'
+        ]
+      }
+    ]
+  })} />
 
   <title>{title}</title>
   <ClientRouter />
 </head>
 <body>
-<div>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<main id="main-content">
   <slot />
-</div>
+</main>
 </body>
 </html>
 
@@ -77,5 +100,52 @@ const image = ogImage ? ogImage : '/favicon.svg';
         font-family: system-ui, sans-serif;
         background: var(--color-gray-800);
         color: #fff;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        margin: 0;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection {
+        background: rgba(96, 165, 250, 0.35);
+        color: #ffffff;
+    }
+
+    .skip-link {
+        position: absolute;
+        left: 1rem;
+        top: -4rem;
+        z-index: 1000;
+        background: #111827;
+        color: #fff;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        border: 2px solid #60a5fa;
+        transition: top 0.2s ease;
+    }
+
+    .skip-link:focus-visible {
+        top: 1rem;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+        outline: 3px solid #60a5fa;
+        outline-offset: 3px;
+        border-radius: 0.5rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
     }
 </style>
