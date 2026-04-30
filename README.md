@@ -1,47 +1,73 @@
-# Astro Starter Kit: Minimal
+# pausegarra.com
 
-```sh
-yarn create astro@latest -- --template minimal
+Personal portfolio of [Pau Segarra](https://pausegarra.com), Backend Software Engineer specializing in scalable microservices, APIs, and cloud infrastructure.
+
+## Stack
+
+- **Framework**: [Astro](https://astro.build) 5.x with View Transitions
+- **Styling**: [Tailwind CSS](https://tailwindcss.com) 4.x via `@tailwindcss/vite`
+- **Icons**: [astro-icon](https://github.com/nicoBretz/astro-icon) with [Iconify](https://iconify.design/)
+- **Content**: Astro content collections with Zod schema validation
+
+## Project Structure
+
 ```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
 /
-├── public/
 ├── src/
-│   └── pages/
-│       └── index.astro
+│   ├── compoents/          # Astro components (atoms, molecules, organisms)
+│   ├── content/
+│   │   └── projects/       # Project markdown files with Zod schema
+│   ├── content.config.ts   # Content collection definitions
+│   ├── layouts/
+│   │   └── Layout.astro    # Base layout with SEO, OG tags, JSON-LD
+│   ├── lib/
+│   │   └── swiper.js       # Swiper carousel initialization
+│   ├── pages/
+│   │   └── index.astro     # Homepage
+│   └── styles/
+│       └── global.css      # Tailwind imports and global styles
+├── public/                 # Static assets
+├── astro.config.mjs
 └── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Commands
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+| Command          | Action                                    |
+| :--------------- | :---------------------------------------- |
+| `yarn dev`       | Start dev server at `localhost:4321`      |
+| `yarn build`     | Build production site to `./dist/`       |
+| `yarn preview`   | Preview build locally                     |
+| `yarn astro add` | Add Astro integrations                    |
+| `yarn astro check`| Run TypeScript type checking             |
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Development
 
-## 🧞 Commands
+```sh
+yarn install
+yarn dev
+```
 
-All commands are run from the root of the project, from a terminal:
+## Content Collections
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `yarn install`             | Installs dependencies                            |
-| `yarn dev`             | Starts local dev server at `localhost:4321`      |
-| `yarn build`           | Build your production site to `./dist/`          |
-| `yarn preview`         | Preview your build locally, before deploying     |
-| `yarn astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `yarn astro -- --help` | Get help using the Astro CLI                     |
+Projects are defined in `src/content/projects/*.md` with the schema:
 
-## 👀 Want to learn more?
+```ts
+{
+  title: string;
+  shortDescription: string;
+  tech: string[];
+  features: string[];
+  link: string | null;
+  featured: boolean;
+  links: { title, url, className }[];
+}
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## SEO
+
+The site includes:
+- Sitemap generation (`@astrojs/sitemap`)
+- Open Graph and Twitter meta tags
+- JSON-LD structured data (WebSite + Person schema)
+- Canonical URLs and hreflang tags
