@@ -14,5 +14,5 @@ export default defineConfig({
     icon(),
     sitemap(),
   ],
-  site: 'https://pausegarra.es/',
+  site: 'https://pausegarra.com/',
 });
