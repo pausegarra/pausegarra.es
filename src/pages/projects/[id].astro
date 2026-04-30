@@ -20,17 +20,67 @@ const { Content } = await render(project);
 <Layout
   title={`${project.data.title} | Pau Segarra`}
   description={project.data.shortDescription}
-  url={`https://pausegarra.es/projects/${project.slug}/`}
+  url={`https://pausegarra.com/projects/${project.slug}/`}
+  keywords={`${project.data.title}, backend project, software architecture, Pau Segarra`}
 >
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'CreativeWork',
+          name: project.data.title,
+          description: project.data.shortDescription,
+          url: `https://pausegarra.com/projects/${project.slug}/`,
+          author: {
+            '@type': 'Person',
+            name: 'Pau Segarra',
+            url: 'https://pausegarra.com/'
+          },
+          about: project.data.tech
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: 'https://pausegarra.com/'
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: 'Projects',
+              item: 'https://pausegarra.com/projects/'
+            },
+            {
+              '@type': 'ListItem',
+              position: 3,
+              name: project.data.title,
+              item: `https://pausegarra.com/projects/${project.slug}/`
+            }
+          ]
+        }
+      ]
+    })}
+  />
   <section class="pt-20 px-4 text-white">
     <div class="max-w-4xl mx-auto text-center mb-12">
-      <Title title={project.data.title} transitionName={`project-title-${project.slug}`} class="text-4xl md:text-5xl font-bold pb-4 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent" />
+      <Title as="h1" title={project.data.title} transitionName={`project-title-${project.slug}`} class="text-4xl md:text-5xl font-bold pb-4 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent" />
       <p class="text-lg opacity-80" transition:name={`project-description-${project.slug}`}>{project.data.shortDescription}</p>
     </div>
 
     <div class="max-w-3xl mx-auto flex flex-wrap gap-2 justify-center">
-      {project.data.links.map((link, linkIndex) => (
-        <a href={link.url} target="_blank" class={`px-3 py-1 ${link.className} text-sm rounded-full`}>
+      {project.data.links.map((link) => (
+        <a
+          href={link.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Visit ${link.title} for ${project.data.title}`}
+          class={`px-3 py-1 ${link.className} text-sm rounded-full`}
+        >
           Visit {link.title}
         </a>
       ))}
@@ -44,7 +94,7 @@ const { Content } = await render(project);
       <div class="text-center">
         <Title title="Technologies" class="bg-blue-400 mb-2" as="h4" />
         <div class="flex flex-wrap gap-2 justify-center">
-          {project.data.tech.map((tech, techIndex) => (
+          {project.data.tech.map((tech) => (
             <Pill
               item={tech}
               color="text-blue-400"
@@ -56,7 +106,7 @@ const { Content } = await render(project);
       <div class="text-center">
         <Title title="Features" class="bg-green-400 mb-2" as="h4" />
         <div class="flex flex-wrap gap-2 justify-center pb-4">
-          {project.data.features.map((tech, techIndex) => (
+          {project.data.features.map((tech) => (
             <Pill
               item={tech}
               color="text-green-400"
