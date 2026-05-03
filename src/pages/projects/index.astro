@@ -10,19 +10,41 @@ const projects = await getCollection("projects")
 <Layout
   title="Projects | Backend Engineering Portfolio of Pau Segarra"
   description="Explore backend engineering projects by Pau Segarra, including scalable APIs, cloud-native architectures, event-driven systems, and real-world implementations using Java, Quarkus, OpenFGA, and more."
-  url="https://pausegarra.es/projects/"
+  url="https://pausegarra.com/projects/"
+  keywords="backend projects, API architecture, cloud-native projects, event-driven systems, software engineering portfolio"
 >
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://pausegarra.es/'
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Projects',
+          item: 'https://pausegarra.es/projects/'
+        }
+      ]
+    })}
+  />
   <div class="text-center my-16">
-    <Title transitionName="projects-title" as="h2" title="Projects" class="font-bold mb-2 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent" />
+    <Title transitionName="projects-title" as="h1" title="Projects" class="font-bold mb-2 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent" />
     <div transition:name="projects-divider" class="w-24 h-1 bg-gradient-to-r from-green-600 to-blue-600 mx-auto"></div>
   </div>
 
-  <div class="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+  <div class="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 md:px-0">
     {projects.map(project => (
-      <a href={`/projects/${project.slug}/`}>
-        <Card additionalClass={`bg-gray-900 p-8 rounded-xl flex-col shadow-2xl`}>
+      <a href={`/projects/${project.slug}/`} class="group block h-full">
+        <Card additionalClass={`bg-gray-900 p-8 rounded-xl flex-col shadow-2xl h-full transition-all duration-300 group-hover:-translate-y-1 group-hover:border-blue-500/40`}>
           <Title as="h4" title={project.data.title} transitionName={`project-title-${project.slug}`} class="text-2xl font-semibold mb-4 text-white" />
-          <p transition:name={`project-description-${project.slug}`} class="text-gray-400 leading-relaxed">
+          <p transition:name={`project-description-${project.slug}`} class="text-gray-300 leading-relaxed">
             {project.data.shortDescription}
           </p>
         </Card>

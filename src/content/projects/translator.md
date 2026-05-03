@@ -2,7 +2,7 @@
 title: Translator
 shortDescription: Translator is a simple and easy-to-use translation tool powered by ChatGPT.
 link: https://github.com/pausegarra/translator
-featured: true
+featured: false
 links:
   - title: GitHub
     url: https://github.com/pausegarra/translator
