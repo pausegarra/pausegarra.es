@@ -3,6 +3,15 @@ import { Icon } from 'astro-icon/components';
 import Title from "../atoms/Title.astro";
 import Divider from "../atoms/Divider.astro";
 
+interface Props {
+  copy: {
+    title: string;
+    description: string;
+  };
+}
+
+const { copy } = Astro.props;
+
 const skills = [
   { name: "Java", icon: "devicon:java" },
   { name: "Quarkus", icon: "devicon:quarkus" },
@@ -27,10 +36,10 @@ const skills = [
   <div class="pointer-events-none absolute -bottom-28 left-[-5rem] h-80 w-80 rounded-full bg-green-500/10 blur-3xl"></div>
 
   <div class="relative mx-auto mb-12 max-w-6xl text-center sm:mb-16">
-    <Title as="h2" title="Tech Stack" class="mb-2 bg-gradient-to-r from-blue-400 to-green-400" />
+    <Title as="h2" title={copy.title} class="mb-2 bg-gradient-to-r from-blue-400 to-green-400" />
     <Divider class="bg-gradient-to-r from-blue-600 to-green-600" />
     <p class="mx-auto mt-5 max-w-2xl text-sm text-gray-400 sm:text-base">
-      A compact snapshot of the tools I reach for most across backend, infrastructure, and product work.
+      {copy.description}
     </p>
   </div>
 

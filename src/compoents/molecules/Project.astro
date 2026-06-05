@@ -10,22 +10,24 @@ interface Props {
     tech: string[];
     features: string[];
   };
-  slug: string;
+  href: string;
+  transitionKey: string;
+  keyFeaturesLabel: string;
 }
 
-const {project, slug} = Astro.props;
+const {project, href, transitionKey, keyFeaturesLabel} = Astro.props;
 ---
 
 <Card additionalClass="bg-gray-900 p-8 rounded-xl flex-col shadow-2xl h-full transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/40">
-  <a href={`/projects/${slug}/`} aria-label={`View project ${project.title}`} class="block h-full">
-    <Title as="h3" title={project.title} transitionName={`project-title-${slug}`} class="text-2xl font-semibold mb-4 text-white group-hover:text-blue-400 transition-colors" />
+  <a href={href} aria-label={`View project ${project.title}`} class="block h-full">
+    <Title as="h3" title={project.title} transitionName={`project-title-${transitionKey}`} class="text-2xl font-semibold mb-4 text-white group-hover:text-blue-400 transition-colors" />
 
-    <p class="text-gray-300 mb-6 leading-relaxed" transition:name={`project-description-${slug}`}>
+    <p class="text-gray-300 mb-6 leading-relaxed" transition:name={`project-description-${transitionKey}`}>
       {project.shortDescription}
     </p>
 
     <div class="mb-6">
-      <h4 class="text-sm font-semibold text-gray-300 mb-3">Key Features:</h4>
+      <h4 class="text-sm font-semibold text-gray-300 mb-3">{keyFeaturesLabel}</h4>
       <ul class="grid grid-cols-2 gap-2" aria-label={`Key features of ${project.title}`}>
         {project.features.map((feature) => (
           <li class="flex items-center text-sm text-gray-300">

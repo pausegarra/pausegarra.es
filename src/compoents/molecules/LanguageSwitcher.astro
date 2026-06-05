@@ -1,0 +1,54 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { locales, type Locale } from "../../lib/i18n";
+
+interface Props {
+  currentLocale: Locale;
+  routePath: string;
+  label: string;
+}
+
+const { currentLocale, routePath, label } = Astro.props;
+const currentLocaleData = locales.find((item) => item.code === currentLocale) ?? locales[0];
+---
+
+<details class="relative language-switcher">
+  <summary class="flex cursor-pointer list-none items-center gap-2 rounded-full border border-gray-700 bg-gray-900/90 px-4 py-2 text-sm font-medium text-gray-100 shadow-lg shadow-black/20 transition hover:border-gray-500 hover:bg-gray-900">
+    <span class="sr-only">{label}</span>
+    <span aria-hidden="true" class="tracking-wide">{currentLocaleData.nativeLabel}</span>
+    <span aria-hidden="true" class="text-gray-400">▾</span>
+  </summary>
+
+  <div class="absolute right-0 top-full z-20 mt-3 min-w-44 overflow-hidden rounded-2xl border border-gray-800 bg-gray-950 p-2 shadow-2xl shadow-black/40">
+    {locales.map((locale) => (
+      <a
+        href={getRelativeLocaleUrl(locale.code, routePath)}
+        data-locale={locale.code}
+        aria-current={locale.code === currentLocale ? "true" : undefined}
+        class:list={[
+          "flex items-center justify-between rounded-xl px-3 py-2 text-sm transition",
+          locale.code === currentLocale
+            ? "bg-blue-500/15 text-white"
+            : "text-gray-300 hover:bg-gray-800 hover:text-white",
+        ]}
+      >
+        <span>{locale.nativeLabel}</span>
+        <span class="text-xs uppercase tracking-[0.2em] text-gray-500">{locale.code}</span>
+      </a>
+    ))}
+  </div>
+</details>
+
+<script is:inline>
+  const key = "pausegarra:locale";
+  document.addEventListener("click", (event) => {
+    const link = event.target instanceof Element ? event.target.closest("[data-locale]") : null;
+    if (!link) return;
+
+    try {
+      localStorage.setItem(key, link.getAttribute("data-locale") || "");
+    } catch {
+      // Ignore storage failures.
+    }
+  });
+</script>

@@ -2,34 +2,38 @@
 import Title from "../atoms/Title.astro";
 import Card from "../atoms/Card.astro";
 import Divider from "../atoms/Divider.astro";
+
+interface Props {
+  copy: {
+    title: string;
+    paragraphs: readonly string[];
+    stats: ReadonlyArray<{ value: string; label: string }>;
+  };
+}
+
+const { copy } = Astro.props;
 ---
 
 <section id="about" class="py-20 px-4 bg-gray-800">
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-16">
-      <Title as="h2" title="About Me" class="mb-2 bg-gradient-to-r from-blue-400 to-green-400" />
+      <Title as="h2" title={copy.title} class="mb-2 bg-gradient-to-r from-blue-400 to-green-400" />
       <Divider class="bg-gradient-to-r from-blue-600 to-green-600" />
     </div>
 
     <div class="grid md:grid-cols-2 gap-12 items-center">
       <div class="space-y-6">
-        <p class="text-lg text-gray-300 leading-relaxed">
-          I’m a Software Engineer with over 5 years of experience in backend development, specialized in building scalable and high-performance server-side applications. I design and implement robust RESTful APIs, optimize relational and NoSQL databases, and architect distributed systems using modern DevOps practices.
-        </p>
-
-        <p class="text-lg text-gray-300 leading-relaxed">
-          My core technologies include Java, Spring Boot, Quarkus, Node.js, NestJS, React, Docker, Kubernetes, and PostgreSQL. I follow clean code principles, domain-driven design, and I’m passionate about solving complex technical challenges with simple and elegant solutions.
-        </p>
+        {copy.paragraphs.map((paragraph) => (
+          <p class="text-lg text-gray-300 leading-relaxed">{paragraph}</p>
+        ))}
 
         <div class="grid grid-cols-2 gap-6 mt-8">
-          <Card background="gray-900" additionalClass="flex-col p-4">
-            <div class="text-3xl font-bold text-blue-400 mb-2">50+</div>
-            <div class="text-gray-300">Projects Completed</div>
-          </Card>
-          <Card background="gray-900" additionalClass="flex-col p-4">
-            <div class="text-3xl font-bold text-green-400 mb-2">5+</div>
-            <div class="text-gray-300">Years Experience</div>
-          </Card>
+          {copy.stats.map((stat, index) => (
+            <Card background="gray-900" additionalClass="flex-col p-4">
+              <div class={`text-3xl font-bold ${index === 0 ? "text-blue-400" : "text-green-400"} mb-2`}>{stat.value}</div>
+              <div class="text-gray-300">{stat.label}</div>
+            </Card>
+          ))}
         </div>
       </div>
 
