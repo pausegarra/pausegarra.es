@@ -1,0 +1,23 @@
+---
+import Hero from "./hero.astro";
+import About from "./about.astro";
+import Skills from "./skills.astro";
+import Projects from "./projects.astro";
+import Contact from "./contact.astro";
+import Footer from "./footer.astro";
+import { type Locale, type SiteCopy } from "../../lib/i18n";
+
+interface Props {
+  locale: Locale;
+  copy: SiteCopy;
+}
+
+const { locale, copy } = Astro.props;
+---
+
+<Hero copy={copy.hero} />
+<About copy={copy.about} />
+<Skills copy={copy.skills} />
+<Projects locale={locale} copy={copy.projects} />
+<Contact copy={copy.contact} />
+<Footer copy={copy.footer} />

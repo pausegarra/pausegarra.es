@@ -1,0 +1,31 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import ProjectDetailPage from "../../../compoents/organisms/ProjectDetailPage.astro";
+import { siteCopy, type Locale } from "../../../lib/i18n";
+import { getProjectSlug, getProjectsForLocale } from "../../../lib/projects";
+
+export async function getStaticPaths() {
+  const locale: Locale = "es";
+  const projects = await getProjectsForLocale(locale);
+
+  return projects.map((project) => ({
+    params: { id: getProjectSlug(project.slug) },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const locale: Locale = "es";
+const copy = siteCopy[locale];
+const projectSlug = getProjectSlug(project.slug);
+---
+
+<Layout
+  title={`${project.data.title} | Pau Segarra`}
+  description={project.data.shortDescription}
+  locale={locale}
+  routePath={`projects/${projectSlug}`}
+  keywords={`${project.data.title}, ${copy.seo.projectKeywordsBase}`}
+>
+  <ProjectDetailPage locale={locale} project={project} copy={copy.projectDetail} />
+</Layout>

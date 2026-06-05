@@ -1,0 +1,103 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import Title from "../atoms/Title.astro";
+import Pill from "../atoms/Pill.astro";
+import { siteUrl, type Locale, type SiteCopy } from "../../lib/i18n";
+import { getProjectSlug } from "../../lib/projects";
+
+interface Props {
+  locale: Locale;
+  project: CollectionEntry<"projects">;
+  copy: SiteCopy["projectDetail"];
+}
+
+const { locale, project, copy } = Astro.props;
+const { Content } = await render(project);
+const projectSlug = getProjectSlug(project.slug);
+---
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CreativeWork',
+      name: project.data.title,
+      description: project.data.shortDescription,
+      url: `${siteUrl}/${locale}/projects/${projectSlug}/`,
+      author: {
+        '@type': 'Person',
+        name: 'Pau Segarra',
+        url: `${siteUrl}/`
+      },
+      about: project.data.tech
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: copy.breadcrumbs.home,
+          item: `${siteUrl}/${locale}/`
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: copy.breadcrumbs.projects,
+          item: `${siteUrl}/${locale}/projects/`
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: project.data.title,
+          item: `${siteUrl}/${locale}/projects/${projectSlug}/`
+        }
+      ]
+    }
+  ]
+})} />
+
+<section class="pt-20 px-4 text-white">
+  <div class="max-w-4xl mx-auto text-center mb-12">
+    <Title as="h1" title={project.data.title} transitionName={`project-title-${locale}-${projectSlug}`} class="text-4xl md:text-5xl font-bold pb-4 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent" />
+    <p class="text-lg opacity-80" transition:name={`project-description-${locale}-${projectSlug}`}>{project.data.shortDescription}</p>
+  </div>
+
+  <div class="max-w-3xl mx-auto flex flex-wrap gap-2 justify-center">
+    {project.data.links.map((link) => (
+      <a
+        href={link.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`${copy.visitPrefix} ${link.title} ${project.data.title}`}
+        class={`px-3 py-1 ${link.className} text-sm rounded-full`}
+      >
+        {copy.visitPrefix} {link.title}
+      </a>
+    ))}
+  </div>
+
+  <div class="max-w-3xl mx-auto prose prose-invert">
+    <Content />
+  </div>
+
+  <div class="max-w-3xl mx-auto mt-12 grid grid-cols-1 gap-4 md:grid-cols-2">
+    <div class="text-center">
+      <Title title={copy.technologies} class="bg-blue-400 mb-2" as="h4" />
+      <div class="flex flex-wrap gap-2 justify-center">
+        {project.data.tech.map((tech) => (
+          <Pill item={tech} color="text-blue-400" />
+        ))}
+      </div>
+    </div>
+
+    <div class="text-center">
+      <Title title={copy.features} class="bg-green-400 mb-2" as="h4" />
+      <div class="flex flex-wrap gap-2 justify-center pb-4">
+        {project.data.features.map((feature) => (
+          <Pill item={feature} color="text-green-400" />
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

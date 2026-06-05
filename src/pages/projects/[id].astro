@@ -1,118 +1,27 @@
 ---
-import { getCollection, render } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
-import Title from "../../compoents/atoms/Title.astro";
-import Pill from "../../compoents/atoms/Pill.astro";
+import { getCollection } from "astro:content";
+import LocaleRedirect from "../../compoents/molecules/LocaleRedirect.astro";
+import { getProjectSlug } from "../../lib/projects";
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
+  const uniqueIds = [...new Set(projects.map((project) => getProjectSlug(project.slug)))];
 
-  return projects.map((project) => ({
-    params: { id: project.slug },
-    props: { project },
+  return uniqueIds.map((id) => ({
+    params: { id },
   }));
 }
-
-const { project } = Astro.props;
-const { Content } = await render(project);
 ---
 
-<Layout
-  title={`${project.data.title} | Pau Segarra`}
-  description={project.data.shortDescription}
-  url={`https://pausegarra.com/projects/${project.slug}/`}
-  keywords={`${project.data.title}, backend project, software architecture, Pau Segarra`}
->
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'CreativeWork',
-          name: project.data.title,
-          description: project.data.shortDescription,
-          url: `https://pausegarra.com/projects/${project.slug}/`,
-          author: {
-            '@type': 'Person',
-            name: 'Pau Segarra',
-            url: 'https://pausegarra.com/'
-          },
-          about: project.data.tech
-        },
-        {
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            {
-              '@type': 'ListItem',
-              position: 1,
-              name: 'Home',
-              item: 'https://pausegarra.com/'
-            },
-            {
-              '@type': 'ListItem',
-              position: 2,
-              name: 'Projects',
-              item: 'https://pausegarra.com/projects/'
-            },
-            {
-              '@type': 'ListItem',
-              position: 3,
-              name: project.data.title,
-              item: `https://pausegarra.com/projects/${project.slug}/`
-            }
-          ]
-        }
-      ]
-    })}
-  />
-  <section class="pt-20 px-4 text-white">
-    <div class="max-w-4xl mx-auto text-center mb-12">
-      <Title as="h1" title={project.data.title} transitionName={`project-title-${project.slug}`} class="text-4xl md:text-5xl font-bold pb-4 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent" />
-      <p class="text-lg opacity-80" transition:name={`project-description-${project.slug}`}>{project.data.shortDescription}</p>
-    </div>
-
-    <div class="max-w-3xl mx-auto flex flex-wrap gap-2 justify-center">
-      {project.data.links.map((link) => (
-        <a
-          href={link.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Visit ${link.title} for ${project.data.title}`}
-          class={`px-3 py-1 ${link.className} text-sm rounded-full`}
-        >
-          Visit {link.title}
-        </a>
-      ))}
-    </div>
-
-    <div class="max-w-3xl mx-auto prose prose-invert">
-      <Content />
-    </div>
-
-    <div class="max-w-3xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="text-center">
-        <Title title="Technologies" class="bg-blue-400 mb-2" as="h4" />
-        <div class="flex flex-wrap gap-2 justify-center">
-          {project.data.tech.map((tech) => (
-            <Pill
-              item={tech}
-              color="text-blue-400"
-            />
-          ))}
-        </div>
-      </div>
-
-      <div class="text-center">
-        <Title title="Features" class="bg-green-400 mb-2" as="h4" />
-        <div class="flex flex-wrap gap-2 justify-center pb-4">
-          {project.data.features.map((tech) => (
-            <Pill
-              item={tech}
-              color="text-green-400"
-            />
-          ))}
-        </div>
-    </div>
-  </section>
-</Layout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <LocaleRedirect />
+  </body>
+</html>
