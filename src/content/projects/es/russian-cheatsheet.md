@@ -1,7 +1,7 @@
 ---
 title: Russian Cheatsheet
 shortDescription: Tu compañero personal para dominar el idioma ruso.
-link: https://russian-cheatsheet.pausegarra.es
+link: https://russiancheatsheet.com
 featured: true
 links:
   - title: GitHub API
@@ -11,7 +11,7 @@ links:
     url: https://github.com/pausegarra/russian-cheatsheet-front
     className: "bg-gradient-to-r from-green-500 to-blue-600"
   - title: Website
-    url: https://russian-cheatsheet.pausegarra.es
+    url: https://russiancheatsheet.com
     className: "bg-gradient-to-r from-purple-500 to-green-500"
     
 tech:
