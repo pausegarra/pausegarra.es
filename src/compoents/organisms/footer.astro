@@ -9,11 +9,9 @@ interface Props {
 const { copy } = Astro.props;
 ---
 
-<footer class="bg-gray-950 text-gray-400 pt-12 pb-6 px-4 border-t border-gray-800">
-  <div class="max-w-6xl mx-auto text-center space-y-4">
-    <p class="text-sm">
-      {copy.developedBy} <span class="text-white font-medium">Pau Segarra</span>
-    </p>
-    <p class="text-xs text-gray-500">&copy; {new Date().getFullYear()} Pau Segarra. {copy.rights}</p>
+<footer class="py-8 text-muted">
+  <div class="site-container flex flex-wrap items-center justify-between gap-4 text-sm">
+    <p>{copy.developedBy} <span class="font-medium text-white">Pau Segarra</span></p>
+    <p>&copy; {new Date().getFullYear()} Pau Segarra. {copy.rights}</p>
   </div>
 </footer>

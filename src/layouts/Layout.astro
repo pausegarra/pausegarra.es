@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
-import { getAbsoluteLocaleUrl } from 'astro:i18n';
+import { getAbsoluteLocaleUrl, getRelativeLocaleUrl } from 'astro:i18n';
 import LanguageSwitcher from '../compoents/molecules/LanguageSwitcher.astro';
 import { locales, siteCopy, siteUrl, getLocaleMeta, type Locale } from '../lib/i18n';
 
@@ -30,7 +30,7 @@ const pageCopy = siteCopy[locale];
   <link rel="sitemap" href="/sitemap-index.xml" />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Pau Segarra" />
-  <meta name="theme-color" content="#111827" />
+  <meta name="theme-color" content="#181818" />
   {keywords && <meta name="keywords" content={keywords} />}
   <meta name="description" content={description}>
   <link rel="canonical" href={canonicalUrl}>
@@ -85,78 +85,19 @@ const pageCopy = siteCopy[locale];
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<div class="fixed right-4 top-4 z-50">
+<header class="site-container flex flex-wrap items-center justify-between gap-4 py-6">
+  <a href={getRelativeLocaleUrl(locale, '')} class="interactive shrink-0 font-semibold text-white">Pau Segarra</a>
+  <nav class="flex min-w-0 flex-wrap items-center gap-4 text-sm" aria-label={pageCopy.navigation.home}>
+    <a href={getRelativeLocaleUrl(locale, '')} aria-current={routePath === '' ? 'page' : undefined}
+       class:list={['interactive rounded-lg px-3 py-2', routePath === '' ? 'text-[rgb(var(--accent-light))]' : 'text-muted hover:text-white']}>{pageCopy.navigation.home}</a>
+    <a href={getRelativeLocaleUrl(locale, 'projects')} aria-current={routePath.startsWith('projects') ? 'page' : undefined}
+       class:list={['interactive rounded-lg px-3 py-2', routePath.startsWith('projects') ? 'text-[rgb(var(--accent-light))]' : 'text-muted hover:text-white']}>{pageCopy.navigation.projects}</a>
+    <a href={`${getRelativeLocaleUrl(locale, '')}#contact`} class="interactive rounded-lg px-3 py-2 text-muted hover:text-white">{pageCopy.navigation.contact}</a>
+  </nav>
   <LanguageSwitcher currentLocale={locale} routePath={routePath} label={pageCopy.navigation.languageLabel} />
-</div>
+</header>
 <main id="main-content">
   <slot />
 </main>
 </body>
 </html>
-
-<style is:global>
-    :root {
-        --accent: 136, 58, 234;
-        --accent-light: 224, 204, 250;
-        --accent-dark: 49, 10, 101;
-        --accent-gradient: linear-gradient(
-                45deg,
-                rgb(var(--accent)),
-                rgb(var(--accent-light)) 30%,
-                white 60%
-        );
-    }
-
-    html {
-        font-family: system-ui, sans-serif;
-        background: var(--color-gray-800);
-        color: #fff;
-        scroll-behavior: smooth;
-    }
-
-    body {
-        margin: 0;
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
-    }
-
-    ::selection {
-        background: rgba(96, 165, 250, 0.35);
-        color: #ffffff;
-    }
-
-    .skip-link {
-        position: absolute;
-        left: 1rem;
-        top: -4rem;
-        z-index: 1000;
-        background: #111827;
-        color: #fff;
-        padding: 0.75rem 1rem;
-        border-radius: 0.5rem;
-        border: 2px solid #60a5fa;
-        transition: top 0.2s ease;
-    }
-
-    .skip-link:focus-visible {
-        top: 1rem;
-    }
-
-    a:focus-visible,
-    button:focus-visible {
-        outline: 3px solid #60a5fa;
-        outline-offset: 3px;
-        border-radius: 0.5rem;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        *,
-        *::before,
-        *::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-            scroll-behavior: auto !important;
-        }
-    }
-</style>

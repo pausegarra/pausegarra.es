@@ -1,2 +1,49 @@
 @import "tailwindcss";
+@import "@fontsource/geist/400.css";
+@import "@fontsource/geist/500.css";
+@import "@fontsource/geist/600.css";
+@import "@fontsource/geist/700.css";
 @plugin "@tailwindcss/typography";
+
+:root {
+  --accent: 136, 58, 234;
+  --accent-light: 224, 204, 250;
+  --accent-dark: 49, 10, 101;
+  --surface: #181818;
+  --surface-raised: #1f1f1f;
+  --surface-hover: #272727;
+  --border: #313131;
+  --text: #ffffff;
+  --muted: #b8b8b8;
+  --motion-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  color-scheme: dark;
+}
+html { font-family: 'Geist', sans-serif; background: var(--surface); color: var(--text); scroll-behavior: smooth; }
+body { margin: 0; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4 { text-wrap: balance; }
+p { text-wrap: pretty; }
+img { max-width: 100%; height: auto; }
+::selection { background: rgba(var(--accent), .4); color: white; }
+.site-container { @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8; }
+.site-section { @apply py-16 md:py-24; }
+@layer components {
+  .surface { background: var(--surface-raised); border: 1px solid var(--border); }
+  .text-muted { color: var(--muted); }
+}
+.hero-heading { background-image: linear-gradient(to right, #fff, #9b9b9b); background-clip: text; color: transparent; }
+.interactive { transition: color 200ms var(--motion-ease), background-color 200ms var(--motion-ease), border-color 200ms var(--motion-ease), transform 200ms var(--motion-ease); }
+.button { @apply inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-base font-semibold; }
+.button-primary { background: rgb(var(--accent)); color: white; }
+.button-primary:hover { background: rgba(var(--accent), .85); }
+.button-secondary { background: var(--surface-raised); border: 1px solid var(--border); color: white; }
+.button-secondary:hover { background: var(--surface-hover); border-color: rgb(var(--accent-light)); }
+a:active, button:active, summary:active { transform: translateY(1px); }
+:where(a, button, summary):focus-visible { outline: 3px solid rgb(var(--accent-light)); outline-offset: 4px; border-radius: .5rem; }
+.skip-link { @apply absolute left-4 z-50 rounded-lg px-4 py-3; top: -6rem; background: var(--surface); color: white; }
+.skip-link:focus-visible { top: 1rem; }
+.project-prose { overflow-wrap: anywhere; }
+.project-prose a { color: rgb(var(--accent-light)); }
+.project-prose pre { max-width: 100%; overflow-x: auto; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

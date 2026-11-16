@@ -1,4 +1,5 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
 import { render, type CollectionEntry } from "astro:content";
 import Title from "../atoms/Title.astro";
 import Pill from "../atoms/Pill.astro";
@@ -57,47 +58,42 @@ const projectSlug = getProjectSlug(project.slug);
   ]
 })} />
 
-<section class="pt-20 px-4 text-white">
-  <div class="max-w-4xl mx-auto text-center mb-12">
-    <Title as="h1" title={project.data.title} transitionName={`project-title-${locale}-${projectSlug}`} class="text-4xl md:text-5xl font-bold pb-4 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent" />
-    <p class="text-lg opacity-80" transition:name={`project-description-${locale}-${projectSlug}`}>{project.data.shortDescription}</p>
+<article class="site-container py-16 md:py-24">
+  <nav aria-label={copy.breadcrumbs.projects} class="mb-8 text-sm text-muted">
+    <ol class="flex flex-wrap items-center gap-3">
+      <li><a class="interactive hover:text-white" href={getRelativeLocaleUrl(locale, '')}>{copy.breadcrumbs.home}</a></li>
+      <li aria-hidden="true">/</li>
+      <li><a class="interactive hover:text-white" href={getRelativeLocaleUrl(locale, 'projects')}>{copy.breadcrumbs.projects}</a></li>
+      <li aria-hidden="true">/</li>
+      <li aria-current="page" class="min-w-0 break-words text-white">{project.data.title}</li>
+    </ol>
+  </nav>
+  <div class="max-w-3xl">
+    <Title as="h1" title={project.data.title} transitionName={`project-title-${locale}-${projectSlug}`} class="mb-6 break-words" />
+    <p class="text-lg text-muted" transition:name={`project-description-${locale}-${projectSlug}`}>{project.data.shortDescription}</p>
   </div>
-
-  <div class="max-w-3xl mx-auto flex flex-wrap gap-2 justify-center">
+  <div class="my-8 flex flex-wrap gap-3">
     {project.data.links.map((link) => (
       <a
         href={link.url}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`${copy.visitPrefix} ${link.title} ${project.data.title}`}
-        class={`px-3 py-1 ${link.className} text-sm rounded-full`}
+        class="button button-secondary interactive"
       >
         {copy.visitPrefix} {link.title}
       </a>
     ))}
   </div>
-
-  <div class="max-w-3xl mx-auto prose prose-invert">
-    <Content />
+  <div class="prose prose-invert project-prose max-w-3xl"><Content /></div>
+  <div class="mt-12 grid max-w-3xl grid-cols-1 gap-8 md:grid-cols-2">
+    <section>
+      <Title as="h2" title={copy.technologies} class="mb-4" />
+      <div class="flex flex-wrap gap-2">{project.data.tech.map((tech) => <Pill item={tech} />)}</div>
+    </section>
+    <section>
+      <Title as="h2" title={copy.features} class="mb-4" />
+      <div class="flex flex-wrap gap-2">{project.data.features.map((feature) => <Pill item={feature} />)}</div>
+    </section>
   </div>
-
-  <div class="max-w-3xl mx-auto mt-12 grid grid-cols-1 gap-4 md:grid-cols-2">
-    <div class="text-center">
-      <Title title={copy.technologies} class="bg-blue-400 mb-2" as="h4" />
-      <div class="flex flex-wrap gap-2 justify-center">
-        {project.data.tech.map((tech) => (
-          <Pill item={tech} color="text-blue-400" />
-        ))}
-      </div>
-    </div>
-
-    <div class="text-center">
-      <Title title={copy.features} class="bg-green-400 mb-2" as="h4" />
-      <div class="flex flex-wrap gap-2 justify-center pb-4">
-        {project.data.features.map((feature) => (
-          <Pill item={feature} color="text-green-400" />
-        ))}
-      </div>
-    </div>
-  </div>
-</section>
+</article>

@@ -1,36 +1,17 @@
 ---
 interface Props {
   title: string;
-  as?: string;
+  'as'?: 'h1' | 'h2' | 'h3' | 'h4';
   class?: string;
   transitionName?: string;
 }
-
-const { title, as = "h2", class: additionalClass, transitionName } = Astro.props;
-
-const className = `font-bold bg-clip-text text-transparent ${additionalClass}`;
+const { title, as: Tag = 'h2', class: additionalClass = '', transitionName } = Astro.props as Props;
+const sizes = {
+  h1: 'text-4xl md:text-6xl',
+  h2: 'text-3xl md:text-4xl',
+  h3: 'text-2xl',
+  h4: 'text-sm',
+};
 ---
 
-{as === "h1" && (
-  <h1 class={`text-6xl md:text-8xl font-bold py-2 ${className}`} transition:name={transitionName}>
-    {title}
-  </h1>
-)}
-
-{as === "h2" && (
-  <h2 class={`text-4xl ${className}`} transition:name={transitionName}>
-    {title}
-  </h2>
-)}
-
-{as === "h3" && (
-  <h3 class={`text-2xl ${className}`} transition:name={transitionName}>
-    {title}
-  </h3>
-)}
-
-{as === "h4" && (
-  <h4 class={`text-xl ${className}`} transition:name={transitionName}>
-    {title}
-  </h4>
-)}
+<Tag class:list={['font-semibold', sizes[Tag], additionalClass]} transition:name={transitionName}>{title}</Tag>

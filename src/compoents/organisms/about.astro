@@ -14,38 +14,27 @@ interface Props {
 const { copy } = Astro.props;
 ---
 
-<section id="about" class="py-20 px-4 bg-gray-800">
-  <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-16">
-      <Title as="h2" title={copy.title} class="mb-2 bg-gradient-to-r from-blue-400 to-green-400" />
-      <Divider class="bg-gradient-to-r from-blue-600 to-green-600" />
+<section id="about" class="site-section">
+  <div class="site-container">
+    <div class="mb-8 md:mb-12">
+      <Title as="h2" title={copy.title} />
+      <Divider />
     </div>
-
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <div class="space-y-6">
+    <div class="grid min-w-0 gap-8 md:grid-cols-[minmax(0,1fr)_16rem] md:items-start">
+      <div class="min-w-0 space-y-6">
         {copy.paragraphs.map((paragraph) => (
-          <p class="text-lg text-gray-300 leading-relaxed">{paragraph}</p>
+          <p class="text-lg text-muted">{paragraph}</p>
         ))}
-
-        <div class="grid grid-cols-2 gap-6 mt-8">
-          {copy.stats.map((stat, index) => (
-            <Card background="gray-900" additionalClass="flex-col p-4">
-              <div class={`text-3xl font-bold ${index === 0 ? "text-blue-400" : "text-green-400"} mb-2`}>{stat.value}</div>
-              <div class="text-gray-300">{stat.label}</div>
+        <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {copy.stats.map((stat) => (
+            <Card additionalClass="min-w-0 flex-col p-4">
+              <div class="mb-2 text-3xl font-semibold">{stat.value}</div>
+              <div class="text-sm text-muted">{stat.label}</div>
             </Card>
           ))}
         </div>
       </div>
-
-      <div class="relative">
-        <Card from="gray-700" to="gray-900" gradient additionalClass="w-full h-96 items-center justify-center">
-          <div class="w-64 h-64 rounded-full mx-auto mb-4 flex items-center justify-center p-1 bg-gradient-to-br from-blue-500/80 to-green-400/80 shadow-2xl">
-            <span class="text-4xl font-bold text-white rounded-full overflow-hidden">
-              <img src="https://gravatar.com/avatar/63bfa48e51ec8bf6e6b92e4cb2867424?s=300&d=identicon" alt="Portrait of Pau Segarra" class="rounded-full"/>
-            </span>
-          </div>
-        </Card>
-      </div>
+      <img src="https://gravatar.com/avatar/63bfa48e51ec8bf6e6b92e4cb2867424?s=300&d=identicon" alt="Portrait of Pau Segarra" class="w-48 max-w-full rounded-xl md:w-64" />
     </div>
   </div>
 </section>

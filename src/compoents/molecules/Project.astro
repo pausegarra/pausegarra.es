@@ -18,33 +18,21 @@ interface Props {
 const {project, href, transitionKey, keyFeaturesLabel} = Astro.props;
 ---
 
-<Card additionalClass="bg-gray-900 p-8 rounded-xl flex-col shadow-2xl h-full transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/40">
-  <a href={href} aria-label={`View project ${project.title}`} class="block h-full">
-    <Title as="h3" title={project.title} transitionName={`project-title-${transitionKey}`} class="text-2xl font-semibold mb-4 text-white group-hover:text-blue-400 transition-colors" />
-
-    <p class="text-gray-300 mb-6 leading-relaxed" transition:name={`project-description-${transitionKey}`}>
-      {project.shortDescription}
-    </p>
-
+<Card additionalClass="min-w-0 h-full flex-col p-6">
+  <a href={href} aria-label={`View project ${project.title}`} class="interactive group block min-w-0 h-full rounded-lg">
+    <Title as="h3" title={project.title} transitionName={`project-title-${transitionKey}`} class="interactive mb-4 break-words group-hover:text-[rgb(var(--accent-light))]" />
+    <p class="mb-6 text-muted" transition:name={`project-description-${transitionKey}`}>{project.shortDescription}</p>
     <div class="mb-6">
-      <h4 class="text-sm font-semibold text-gray-300 mb-3">{keyFeaturesLabel}</h4>
-      <ul class="grid grid-cols-2 gap-2" aria-label={`Key features of ${project.title}`}>
+      <h4 class="mb-3 text-sm font-semibold text-muted">{keyFeaturesLabel}</h4>
+      <ul class="grid grid-cols-1 gap-2 sm:grid-cols-2" aria-label={`Key features of ${project.title}`}>
         {project.features.map((feature) => (
-          <li class="flex items-center text-sm text-gray-300">
-            <div class="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-            {feature}
+          <li class="flex min-w-0 items-start gap-2 text-sm text-muted">
+            <span aria-hidden="true" class="mt-2 h-1 w-1 shrink-0 rounded-full bg-[rgb(var(--accent))]"></span>
+            <span class="min-w-0 break-words">{feature}</span>
           </li>
         ))}
       </ul>
     </div>
-
-    <div class="flex flex-wrap gap-2">
-      {project.tech.map((tech) => (
-        <Pill
-          item={tech}
-          color="text-blue-400"
-        />
-      ))}
-    </div>
+    <div class="flex flex-wrap gap-2">{project.tech.map((tech) => <Pill item={tech} />)}</div>
   </a>
 </Card>

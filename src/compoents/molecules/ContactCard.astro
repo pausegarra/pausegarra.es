@@ -5,11 +5,9 @@ interface Props {
   link: string;
   title: string;
   icon: string;
-  from: string;
-  to: string;
 }
 
-const { link, title, icon, from, to } = Astro.props;
+const { link, title, icon } = Astro.props;
 const isExternal = link.startsWith('http');
 ---
 
@@ -18,12 +16,10 @@ const isExternal = link.startsWith('http');
   aria-label={`Contact via ${title}`}
   target={isExternal ? '_blank' : undefined}
   rel={isExternal ? 'noopener noreferrer' : undefined}
-  class="text-center p-6 bg-gray-800 rounded-xl border border-gray-700 hover:border-gray-500 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/25 block"
+  class="surface interactive flex min-w-0 items-center gap-4 rounded-xl p-4 hover:bg-[var(--surface-hover)]"
 >
-  <div class={`w-16 h-16 bg-gradient-to-br ${from} ${to} rounded-full mx-auto mb-4 flex items-center justify-center`}>
-    <span class="text-white text-xl">
-      <Icon name={icon} aria-hidden="true" class="text-3xl"/>
-    </span>
+  <div class="shrink-0 text-2xl text-[rgb(var(--accent-light))]">
+    {icon === 'material-symbols:alternate-email' ? <span aria-hidden="true">@</span> : <Icon name={icon} aria-hidden="true" />}
   </div>
-  <h3 class="text-lg font-semibold text-white">{title}</h3>
+  <h3 class="min-w-0 text-lg font-semibold">{title}</h3>
 </a>
