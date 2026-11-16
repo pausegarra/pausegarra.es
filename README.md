@@ -71,3 +71,13 @@ The site includes:
 - Open Graph and Twitter meta tags
 - JSON-LD structured data (WebSite + Person schema)
 - Canonical URLs and hreflang tags
+
+## Headless verification
+
+Run from the repository root with dependencies installed:
+
+    yarn astro check
+    yarn build
+    python3 tests/restyling_contract_test.py -v
+
+The fixture records the pre-restyling semantic baseline. Do not regenerate it after presentation changes. The suite checks localized routes, content, links, metadata, images, navigation and transition wiring. It does not measure rendered layout or execute browser navigation. No dev server is required.

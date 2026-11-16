@@ -1,24 +1,5 @@
 ---
-interface Props {
-  from?: string;
-  to?: string;
-  gradient?: boolean;
-  background?: string;
-  additionalClass?: string;
-}
-
-const { from = 'gray-800', to = 'gray-900', gradient, background = 'gray-900', additionalClass = '' } = Astro.props;
-
-let className = `rounded-xl border border-gray-800/80 shadow-2xl flex ${additionalClass}`
-
-if (gradient) {
-  className += ` bg-gradient-to-br from-${from} to-${to}`;
-} else {
-  className += ` bg-${background}`;
-}
-
+interface Props { additionalClass?: string; }
+const { additionalClass = '' } = Astro.props;
 ---
-
-<div class={className}>
-  <slot />
-</div>
+<div class:list={['surface flex rounded-xl', additionalClass]}><slot /></div>

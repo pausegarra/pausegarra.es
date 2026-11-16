@@ -360,6 +360,11 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.25.4.tgz#0b17ec8a70b2385827d52314c1253160a0b9bacc"
   integrity sha512-nOT2vZNw6hJ+z43oP1SPea/G/6AbN6X+bGNhNuq8NtRHy4wsMhw765IKLNmnjek7GvjWBYQ8Q5VBoYTFg9y1UQ==
 
+"@fontsource/geist@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/geist/-/geist-5.3.0.tgz#309379f1654fe357be21ea1964e3042dcf9f0b08"
+  integrity sha512-u03ftlfVwb05uijq2jGDJ03/HKGqMKaNFk7KOhkpBUex8+BhrAOfMs/XciJ2UUNUX9fEsZbZQld/RWMA2oFU7g==
+
 "@iconify-json/devicon@^1.2.24":
   version "1.2.24"
   resolved "https://registry.yarnpkg.com/@iconify-json/devicon/-/devicon-1.2.24.tgz#d0de97b8270a4cfac0be234e37f7cb270200ac37"

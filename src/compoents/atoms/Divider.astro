@@ -1,9 +1,5 @@
 ---
-interface Props {
-  class?: string;
-}
-
-const { class: additionalClass } = Astro.props;
+interface Props { class?: string; }
+const { class: additionalClass = '' } = Astro.props;
 ---
-
-<div class={`w-24 h-1 ${additionalClass} mx-auto`}></div>
+<div aria-hidden="true" class:list={['mt-4 h-1 w-12 rounded-full bg-[rgb(var(--accent))]', additionalClass]}></div>
