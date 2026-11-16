@@ -12,6 +12,8 @@ from pathlib import Path
 from unittest.mock import patch
 from urllib.parse import unquote, urlsplit
 
+from project_images_contract_test import assert_preserved_files
+
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / 'dist'
 FIXTURE = ROOT / 'tests/fixtures/restyling-before.json'
@@ -124,7 +126,7 @@ class Contract(unittest.TestCase):
             raise AssertionError('dist vacío: ejecutar yarn build antes de los tests')
 
     def test_preservation(self):
-        self.assertEqual(protected(), self.baseline['protected'])
+        assert_preserved_files(protected(), self.baseline['protected'])
         self.assertEqual(set(self.docs), set(self.baseline['pages']))
         for path, doc in self.docs.items():
             with self.subTest(path=path):
