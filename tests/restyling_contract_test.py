@@ -12,14 +12,14 @@ from pathlib import Path
 from unittest.mock import patch
 from urllib.parse import unquote, urlsplit
 
-from project_images_contract_test import assert_preserved_files
+from project_images_contract_test import assert_preserved_files, NEW_PAGE_PATHS
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / 'dist'
 FIXTURE = ROOT / 'tests/fixtures/restyling-before.json'
 SLUGS = ('monitoring', 'sendif', 'number-detection', 'translator',
          'survey-monkey-webhook-manager', 'volchik-cheburashka',
-         'russian-cheatsheet', 'pullyt')
+         'russian-cheatsheet', 'pullyt', 'ai-factory')
 HOME_PATHS = ('en/index.html', 'es/index.html')
 # The immutable pre-restyling fixture was captured in 2026. Only one token
 # per home belongs to the dynamic copyright; other dates remain protected.
@@ -117,6 +117,22 @@ def semantic(doc):
         'structured': structured,
     }
 
+def card_words(locale, slug):
+    front = (ROOT / f'src/content/projects/{locale}/{slug}.md').read_text().split('---', 2)[1]
+    values = []
+    for field_name in ('title', 'shortDescription'):
+        match = re.search(rf'^{field_name}: (.+)$', front, re.M)
+        if not match:
+            raise AssertionError(f'falta {field_name} en {locale}/{slug}')
+        raw = match.group(1)
+        values.append(json.loads(raw) if raw.startswith('"') else raw)
+    for field_name in ('features', 'tech'):
+        match = re.search(rf'^{field_name}:\n((?:  - [^\n]+\n?)+)', front, re.M)
+        if not match:
+            raise AssertionError(f'falta {field_name} en {locale}/{slug}')
+        values.extend(line[4:] for line in match.group(1).splitlines())
+    return Counter(re.findall(r'\w+|[^\w\s]', ' '.join(values)))
+
 class Contract(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -126,18 +142,25 @@ class Contract(unittest.TestCase):
             raise AssertionError('dist vacío: ejecutar yarn build antes de los tests')
 
     def test_preservation(self):
-        assert_preserved_files(protected(), self.baseline['protected'])
-        self.assertEqual(set(self.docs), set(self.baseline['pages']))
-        for path, doc in self.docs.items():
+        assert_preserved_files(protected(), self.baseline['protected'], allow_ai_factory=True)
+        self.assertEqual(set(self.docs), set(self.baseline['pages']) | NEW_PAGE_PATHS)
+        for path in self.baseline['pages']:
+            doc = self.docs[path]
             with self.subTest(path=path):
                 old, new = self.baseline['pages'][path], semantic(doc)
                 old_words, new_words = Counter(old['words']), Counter(new['words'])
+                old_hrefs = Counter(old['hrefs'])
                 if path in HOME_PATHS:
                     self.assertGreater(old_words[BASELINE_COPYRIGHT_YEAR], 0)
                     old_words.subtract([BASELINE_COPYRIGHT_YEAR])
                     new_words.subtract([copyright_year(doc)])
+                    locale = path.split('/')[0]
+                    old_words.subtract(card_words(locale, 'pullyt'))
+                    old_words.update(card_words(locale, 'ai-factory'))
+                    old_hrefs.subtract([f'/{locale}/projects/pullyt/'])
+                    old_hrefs.update([f'/{locale}/projects/ai-factory/'])
                 self.assertFalse(old_words - new_words, 'contenido perdido')
-                self.assertFalse(Counter(old['hrefs']) - Counter(new['hrefs']), 'enlace perdido')
+                self.assertFalse(old_hrefs - Counter(new['hrefs']), 'enlace perdido')
                 for key in ('title', 'lang', 'meta', 'links', 'structured'):
                     self.assertEqual(old[key], new[key], key)
                 self.assertEqual([tuple(image) for image in old['images']], new['images'])

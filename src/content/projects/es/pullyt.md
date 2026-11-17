@@ -2,7 +2,7 @@
 title: Pullyt
 shortDescription: Descargador de medios de escritorio multiplataforma construido con Rust, Tauri y Svelte, impulsado por yt-dlp y FFmpeg.
 link: https://github.com/pausegarra/pullyt
-featured: true
+featured: false
 links:
   - title: GitHub
     url: https://github.com/pausegarra/pullyt

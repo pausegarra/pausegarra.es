@@ -2,7 +2,7 @@
 title: Pullyt
 shortDescription: Cross-platform desktop media downloader built with Rust, Tauri, and Svelte, powered by yt-dlp and FFmpeg.
 link: https://github.com/pausegarra/pullyt
-featured: true
+featured: false
 links:
   - title: GitHub
     url: https://github.com/pausegarra/pullyt
