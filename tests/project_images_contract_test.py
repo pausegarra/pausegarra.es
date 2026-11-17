@@ -19,8 +19,33 @@ PROJECTS = {
     'survey-monkey-webhook-manager': ('smwm.png', 'Survey Monkey Webhook Manager'),
     'translator': ('translate.png', 'Translator'),
     'volchik-cheburashka': ('volchik-cheburashka.png', 'Volchik & Cheburashka'),
+    'ai-factory': ('ai-factory.png', None),
 }
-REPLACED_IMAGE_PATHS = frozenset('public/' + item[0] for item in PROJECTS.values())
+AI_FACTORY_ALTS = {
+    'en': 'Conceptual illustration of local GitHub automation with connected workflows and AI agents',
+    'es': 'Ilustración conceptual de automatización local de GitHub con flujos conectados y agentes de IA',
+}
+LEGACY_PROJECTS = {slug: value for slug, value in PROJECTS.items() if slug != 'ai-factory'}
+REPLACED_IMAGE_PATHS = frozenset('public/' + item[0] for item in LEGACY_PROJECTS.values())
+SERVED_IMAGE_PATHS = frozenset('public/' + item[0] for item in PROJECTS.values())
+ADDITION_PATHS = frozenset({
+    'public/ai-factory.png',
+    'src/content/projects/en/ai-factory.md',
+    'src/content/projects/es/ai-factory.md',
+})
+NEW_PAGE_PATHS = frozenset({
+    'en/projects/ai-factory/index.html',
+    'es/projects/ai-factory/index.html',
+    'projects/ai-factory/index.html',
+})
+PULLYT_AFTER = {
+    'src/content/projects/en/pullyt.md': 'c3620cad1da7aa195943f6e0034cbd992d03578eb6aa63a3493813e644abb4a7',
+    'src/content/projects/es/pullyt.md': 'ad6136776075001c85e60786b1b4afff2a0263463e81e323be6cfe4917867a5a',
+}
+
+
+def project_alt(locale, slug):
+    return AI_FACTORY_ALTS[locale] if slug == 'ai-factory' else PROJECTS[slug][1]
 # These PNGs are served directly, including on mobile; cap each download.
 MAX_IMAGE_BYTES = 128 * 1024
 
@@ -29,8 +54,9 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def assert_preserved_files(current, baseline):
-    if set(current) != set(baseline):
+def assert_preserved_files(current, baseline, *, allow_ai_factory=False):
+    expected_paths = set(baseline) | (set(ADDITION_PATHS) if allow_ai_factory else set())
+    if set(current) != expected_paths:
         raise AssertionError('cambio del inventario de archivos protegidos')
     if not REPLACED_IMAGE_PATHS <= set(baseline):
         raise AssertionError('faltan imágenes originales en la baseline')
@@ -38,9 +64,11 @@ def assert_preserved_files(current, baseline):
         if path in REPLACED_IMAGE_PATHS:
             if current[path] == original_hash:
                 raise AssertionError(f'{path}: imagen original sin reemplazar')
+        elif allow_ai_factory and path in PULLYT_AFTER:
+            if current[path] != PULLYT_AFTER[path]:
+                raise AssertionError(f'{path}: solo se permite retirar el destacado')
         elif current[path] != original_hash:
-            raise AssertionError(f'{path}: cambio fuera de las imágenes autorizadas')
-
+            raise AssertionError(f'{path}: cambio fuera del alcance autorizado')
 
 class Images(HTMLParser):
     VOID = set('area base br col embed hr img input link meta param source track wbr'.split())
@@ -74,7 +102,7 @@ class Images(HTMLParser):
 
 class SourceImages(unittest.TestCase):
     def test_each_served_image_stays_within_transfer_budget(self):
-        for relative in sorted(REPLACED_IMAGE_PATHS):
+        for relative in sorted(SERVED_IMAGE_PATHS):
             with self.subTest(path=relative):
                 self.assertLessEqual((ROOT / relative).stat().st_size,
                                      MAX_IMAGE_BYTES,
@@ -113,10 +141,10 @@ process.stdout.write(JSON.stringify(output));
 '''
         result = subprocess.run(
             ['node', '--input-type=module', '-e', script,
-             *sorted(REPLACED_IMAGE_PATHS)],
+             *sorted(SERVED_IMAGE_PATHS)],
             cwd=ROOT, text=True, capture_output=True, check=True)
         decoded = json.loads(result.stdout)
-        self.assertEqual(len(decoded), 8)
+        self.assertEqual(len(decoded), len(PROJECTS))
         for item in decoded:
             with self.subTest(path=item['file']):
                 self.assertEqual((ROOT / item['file']).read_bytes()[:8], b'\x89PNG\r\n\x1a\n')
@@ -127,14 +155,15 @@ process.stdout.write(JSON.stringify(output));
                                  'proporción 3:2 preservada')
                 self.assertEqual(item['bytes'], item['width'] * item['height'] * 4)
                 self.assertTrue(item['opaque'])
-        self.assertEqual(len({item['pixels'] for item in decoded}), 8,
+        self.assertEqual(len({item['pixels'] for item in decoded}), len(PROJECTS),
                          'mismos píxeles reutilizados con otra codificación')
 
-    def test_sixteen_markdown_references_keep_paths_and_alt(self):
+    def test_eighteen_markdown_references_keep_paths_and_alt(self):
         for locale in ('en', 'es'):
             folder = ROOT / 'src/content/projects' / locale
             self.assertEqual({p.stem for p in folder.glob('*.md')}, set(PROJECTS))
-            for slug, (filename, alt) in PROJECTS.items():
+            for slug, (filename, _) in PROJECTS.items():
+                alt = project_alt(locale, slug)
                 with self.subTest(locale=locale, slug=slug):
                     references = re.findall(r'!\[([^\]]*)\]\(([^)]+)\)',
                                             (folder / f'{slug}.md').read_text())
@@ -168,10 +197,46 @@ class PreservationGuard(unittest.TestCase):
                     assert_preserved_files(mutated, before)
 
 
+    def test_ai_factory_exception_is_narrow(self):
+        before = dict.fromkeys(REPLACED_IMAGE_PATHS, 'original')
+        before.update({path: 'old-pullyt' for path in PULLYT_AFTER})
+        before['src/lib/projects.ts'] = 'protected'
+        after = {path: ('new-' + path if path in REPLACED_IMAGE_PATHS else old)
+                 for path, old in before.items()}
+        after.update(PULLYT_AFTER)
+        after.update({path: 'new-file' for path in ADDITION_PATHS})
+        assert_preserved_files(after, before, allow_ai_factory=True)
+        mutations = []
+        for path in ADDITION_PATHS:
+            changed = dict(after)
+            del changed[path]
+            mutations.append(changed)
+        changed = dict(after)
+        changed['public/extra.png'] = 'extra'
+        mutations.append(changed)
+        for path in PULLYT_AFTER:
+            changed = dict(after)
+            changed[path] = 'unexpected-copy-change'
+            mutations.append(changed)
+        changed = dict(after)
+        changed['src/lib/projects.ts'] = 'unexpected-logic-change'
+        mutations.append(changed)
+        changed = dict(after)
+        changed['public/pullyt.png'] = 'original'
+        mutations.append(changed)
+        for index, changed in enumerate(mutations):
+            with self.subTest(mutation=index):
+                with self.assertRaises(AssertionError):
+                    assert_preserved_files(changed, before, allow_ai_factory=True)
+        with self.assertRaises(AssertionError):
+            assert_preserved_files(after, before)
+
+
 class BuiltImages(unittest.TestCase):
-    def test_sixteen_details_render_the_local_image_inside_prose(self):
+    def test_eighteen_details_render_the_local_image_inside_prose(self):
         for locale in ('en', 'es'):
-            for slug, (filename, alt) in PROJECTS.items():
+            for slug, (filename, _) in PROJECTS.items():
+                alt = project_alt(locale, slug)
                 with self.subTest(locale=locale, slug=slug):
                     page = DIST / locale / 'projects' / slug / 'index.html'
                     self.assertTrue(page.is_file(), 'ejecutar yarn build')
@@ -190,8 +255,8 @@ class BuiltImages(unittest.TestCase):
         baseline_pages = json.loads(BASELINE.read_text())['pages']
         pages = {p.relative_to(DIST).as_posix(): p
                  for p in DIST.rglob('*.html')}
-        self.assertEqual(len(pages), 30, 'build vacío o inventario de rutas alterado')
-        self.assertEqual(set(pages), set(baseline_pages), 'rutas alteradas')
+        self.assertEqual(len(pages), 33, 'build vacío o inventario de rutas alterado')
+        self.assertEqual(set(pages), set(baseline_pages) | NEW_PAGE_PATHS, 'rutas alteradas')
         project_sources = {'/' + filename for filename, _ in PROJECTS.values()}
         for relative, page in pages.items():
             if relative not in details:
@@ -199,7 +264,7 @@ class BuiltImages(unittest.TestCase):
                     actual = Counter((attrs.get('src'), attrs.get('alt'))
                                      for attrs, _ in Images(page.read_text()).images)
                     expected = Counter(tuple(image)
-                                       for image in baseline_pages[relative]['images'])
+                                       for image in baseline_pages.get(relative, {'images': []})['images'])
                     self.assertEqual(actual, expected,
                                      'imágenes src/alt alteradas fuera del detalle')
                     self.assertTrue(project_sources.isdisjoint(src for src, _ in actual),

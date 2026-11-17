@@ -80,9 +80,14 @@ Run from the repository root with dependencies installed:
     yarn build
     python3 tests/project_images_contract_test.py -v
     python3 tests/restyling_contract_test.py -v
+    python3 tests/ai_factory_contract_test.py -v
 
 The fixture records the pre-restyling semantic baseline. Do not regenerate it after presentation changes. The suite checks localized routes, content, links, metadata, images, navigation and transition wiring. It does not measure rendered layout or execute browser navigation. No dev server is required.
 
-The project image suite checks all eight local PNG assets, their replacement against the original hashes, full image decoding, and their references in the sixteen localized detail pages. The original fixture stays unchanged: the preservation suite permits only these eight image replacements and still protects every other recorded file and page contract. Outside project details, image src/alt pairs must match the unchanged fixture, preserving the existing home portraits and rejecting added images, including all eight project assets. Build before running both suites. These checks do not start a server or measure browser layout.
+The project image suite checks nine local PNG assets and their eighteen localized detail references. The eight historical illustrations must still differ from their original hashes. All nine images must decode, remain opaque, have distinct pixels, preserve a 3:2 aspect ratio with a minimum resolution of 960 × 640, and stay within a 128 KiB transfer budget.
 
-Project illustrations are optimized derivatives of archived ImageGen originals. Each locally served PNG has a transfer budget of 128 KiB, a minimum resolution of 960 × 640, an opaque background and the original 3:2 aspect ratio. The suite rejects oversized downloads, invalid images and duplicate pixels. Generation originals and optimization provenance belong in delivery evidence, outside `public/`; production build assets must match the optimized files in `public/`.
+The original pre-restyling fixture remains unchanged. Preservation permits only the eight historical image replacements, the two localized AI Factory entries, its shared PNG and the exact featured-flag change in both Pullyt entries. The build must contain the thirty historical HTML routes plus AI Factory's two localized details and language redirect. Homepages replace the Pullyt card with AI Factory while preserving the other featured projects, content, metadata and portrait images. Catalogues retain both projects. Project illustrations remain restricted to detail pages.
+
+The AI Factory contract checks localized metadata and copy, the featured swap, catalogue membership, GitHub links, shared image, language links and the generated redirect. Build before running all three suites. These are code-level checks; they do not launch a server, execute browser navigation or measure rendered layout.
+
+Project illustrations are optimized derivatives of archived ImageGen originals. Generation originals, prompts and optimization provenance belong in delivery evidence outside public/. Production build assets must match the optimized files in public/.
